@@ -1,0 +1,17 @@
+﻿
+
+<label>
+    余额:&nbsp;
+    @Html.TextBox("余额", "", new
+       {
+           @class = "form-control input-sm",
+           PlaceHolder = "请输入要查询的余额"
+       })
+</label>
+<script>
+                                        function Search()
+                                           {
+                                             var Params =  v("余额");
+                                             return Params;
+                                           }
+</script>

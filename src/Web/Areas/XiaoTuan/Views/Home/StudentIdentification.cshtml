@@ -1,0 +1,384 @@
+﻿
+
+@model  Web.Areas.XiaoTuan.ViewModels.StudentIdentification_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>学生认证</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <div class="bd">
+        <div class="page__bd">
+            @if (Model.model.state == 1)
+            {
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-info weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                        <h2 class="weui-msg__title">等待审核</h2>
+                        <p class="weui-msg__desc">你的认证已经提交，请耐心等待管理员审核</p>
+                    </div>
+                    @*<div class="weui-msg__opr-area">
+                            <p class="weui-btn-area">
+                                <a href="javascript:;" class="weui-btn weui-btn_primary">推荐操作</a>
+                                <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>
+                            </p>
+                        </div>*@
+                    <div class="weui-msg__extra-area">
+                        <div class="weui-footer">
+                            <p class="weui-footer__links">
+                                <a href="javascript:void(0);" class="weui-footer__link">校团服务中心</a>
+                            </p>
+                            <p class="weui-footer__text">Copyright © 2017-2018 XiaoTuan.io</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.model.state == 2)
+            {
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                        <h2 class="weui-msg__title">认证成功</h2>
+                        <p class="weui-msg__desc">恭喜你已经通过学生认证！</p>
+                    </div>
+                    @*<div class="weui-msg__opr-area">
+                            <p class="weui-btn-area">
+                                <a href="javascript:;" class="weui-btn weui-btn_primary">推荐操作</a>
+                                <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>
+                            </p>
+                        </div>*@
+                    <div class="weui-msg__extra-area">
+                        <div class="weui-footer">
+                            <p class="weui-footer__links">
+                                <a href="javascript:void(0);" class="weui-footer__link">校团服务中心</a>
+                            </p>
+                            <p class="weui-footer__text">Copyright © 2017-2018 XiaoTuan.io</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.model.state == 3)
+            {
+                    <div class="weui-cells weui-cells_form">
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">认证状态</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" value="认证重填" readonly style="color:red;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-cells weui-cells_form">
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" placeholder="请输入真实姓名" id="name" value="@Model.name">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="date" class="weui-label">性别</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="sex" type="text" value="@Model.sex">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">手机号</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="tel" placeholder="请输入手机号" id="cell_number" value="@Model.cell_number">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">生日</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="birthday" type="text" value="@Model.model.birthday.Value.ToString("yyyy-MM-dd 日")">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">入学时间</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="to_school_time" type="text" value="@Model.model.to_school_time.Value.ToString("yyyy-MM-dd 日")">
+                            </div>
+                        </div>
+
+
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">学校</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入学校" value="@Model.model.school" id="school">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">专业</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入专业" value="@Model.model.major" id="major">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">年级</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入年级" value="@Model.model.grade" id="grade">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">学生卡号</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入学生卡号" value="@Model.model.card_number" id="card_number">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">毕业时间</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="graduation_time" type="text" value="@Model.model.graduation_time.Value.ToString("yyyy-MM-dd 日")">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div style="width:90%;margin:0 auto;">
+                        <a href="javascript:;" onclick="submit()" class="weui-btn weui-btn_plain-default">提交认证</a>
+                    </div>
+            }
+            else
+            {
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">认证状态</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" value="初次认证" readonly>
+                        </div>
+                    </div>
+                </div>
+                    <div class="weui-cells weui-cells_form">
+                        
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" placeholder="请输入真实姓名" id="name" value="@Model.name">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="date" class="weui-label">性别</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="sex" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">手机号</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="tel" placeholder="请输入手机号" id="cell_number" value="@Model.cell_number">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">生日</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="birthday" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">入学时间</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="to_school_time" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">学校</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入学校" id="school">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">专业</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入专业" id="major">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">年级</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入年级" id="grade">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label class="weui-label">学生卡号</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" type="text" placeholder="请输入学生卡号" id="card_number">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="time2" class="weui-label">毕业时间</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input" id="graduation_time" type="text" value="">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div style="width:90%;margin:0 auto;">
+                        <a href="javascript:;" onclick="submit()" class="weui-btn weui-btn_plain-default">提交认证</a>
+                    </div>
+                    }
+
+
+                </div>
+    </div>
+
+
+
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+        $(function () {
+            FastClick.attach(document.body);
+        });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+        (function (doc, win, undefined) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (clientWidth === undefined) return;
+                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                  console.log(docEl.style.fontSize);
+              };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+
+
+        function submit() {
+          
+            var name = $("#name").val();
+            var cell_number = $("#cell_number").val();
+            var sex = $("#sex").val();
+            var birthday = $("#birthday").val();
+            birthday = birthday.replace("日","00:00");
+            var to_school_time = $("#to_school_time").val();
+            to_school_time = to_school_time.replace("日", "00:00");
+            var school = $("#school").val();
+            var major = $("#major").val();
+            var grade = $("#grade").val();
+            var card_number = $("#card_number").val();
+            var graduation_time = $("#graduation_time").val();
+            graduation_time = graduation_time.replace("日", "00:00");
+            if (name && cell_number && sex && birthday && to_school_time && school && major && grade && card_number && graduation_time) {
+                $.post("/XiaoTuan/Home/StudentIdentification",
+             {
+                 name: name,
+                 cell_number: cell_number,
+                 sex: sex,
+                 birthday: birthday,
+                 to_school_time: to_school_time,
+                 school: school,
+                 major: major,
+                 grade: grade,
+                 card_number: card_number,
+                 graduation_time: graduation_time
+             },
+             function (data, status) {
+                 if (status == 'success') {
+                     $.toast("提交成功!");
+                     setTimeout(function () {
+                         window.location.href = "/XiaoTuan/Home/StudentPage";
+                     }, 1500);
+                 }
+                 else {
+                     $.toast("提交失败!", 'cancel');
+                 }
+
+             });
+            }
+            else {
+                $.toast('请填写完整信息', 'cancel');
+            }
+        }
+
+       
+
+            $("#birthday").datetimePicker({
+                title: '生日',
+                times: function () {
+                return [
+                  {
+                      values: ['日']
+                  }
+                ];
+                },
+                value: '2012-12-12 日',
+                onChange: function (picker, values, displayValues) {
+
+                }
+            });
+        $("#to_school_time").datetimePicker({
+            times: function () {
+                return [
+                 {
+                     values: ['日']
+                 }
+                ];
+            },
+            value: '2012-12-12 日',
+            onChange: function (picker, values, displayValues) {
+
+            }
+        });
+        $("#graduation_time").datetimePicker({
+            times: function () {
+                return [
+                 {
+                     values: ['日']
+                 }
+                ];
+            },
+            value: '2012-12-12 日',
+            onChange: function (picker, values, displayValues) {
+
+            }
+        });
+
+
+        $("#sex").picker({
+            title: "请选择性别",
+            cols: [
+              {
+                  textAlign: 'center',
+                  values: ['男', '女']
+              }
+            ],
+            onChange: function (p, v, dv) {
+                console.log(p, v, dv);
+            },
+            onClose: function (p, v, d) {
+                console.log("close");
+            }
+        });
+
+    </script>
+</body>
+
+</html>
+

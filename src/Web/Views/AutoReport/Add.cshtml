@@ -1,0 +1,7 @@
+﻿@model Web.ViewModels.AutoReport.Add_M
+    
+@Html.InputFor(o=>o.anouncement_id)
+@Html.InputFor(o => o.title)
+@Html.InputFor(o => o.author)
+@Html.RichBoxFor(o => o.contents)
+@Html.TimeFor(o => o.create_time,"")

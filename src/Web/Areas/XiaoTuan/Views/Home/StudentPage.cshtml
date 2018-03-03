@@ -1,0 +1,147 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.StudentPage_M
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的主页</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+</head>
+
+<body ontouchstart>
+
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+           
+            <div id="tab4" class="weui-tab__bd-item weui-tab__bd-item--active">
+                <div class="page__bd">
+                    <div class="mine-head">
+                        <img src="@Model.studentData.photo" />
+                        <div>
+                            <p>@Model.studentData.name</p>
+                            <a href="/XiaoTuan/Home/PersonalInformation">个人信息 ></a>
+                        </div>
+                    </div>
+                    <div class="mine-choice-head">
+                        <div class="title-choice">
+                            <a href="/XiaoTuan/Home/ActivityCollection">
+                                <div>
+                                    我的收藏
+                                </div>
+                            </a>
+                            <a href="/XiaoTuan/Home/organizationConcerns">
+                                <div>
+                                    关注的组织
+                                </div>
+                            </a>
+                            <a href="/XiaoTuan/Home/ActivityFootprint">
+                                <div>
+                                    活动足迹
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="weui-cells">
+                     
+                            <a class="weui-cell weui-cell_access" href="/XiaoTuan/Home/StudentIdentification">
+                                <div class="weui-cell__hd"><img src="~/Areas/XiaoTuan/Contents/img/logo/24/basic3-051.png" alt="" style="width:20px;margin-right:5px;display:block" /></div>
+                                <div class="weui-cell__bd">
+                                    <p>学生认证</p>
+                                </div>
+                                <div class="weui-cell__ft"></div>
+                            </a>
+                     
+                        <a class="weui-cell weui-cell_access" href="/XiaoTuan/Home/AboutUs">
+                            <div class="weui-cell__hd"><img src="~/Areas/XiaoTuan/Contents/img/logo/24/basic3-052.png" alt="" style="width:20px;margin-right:5px;display:block" /></div>
+                            <div class="weui-cell__bd">
+                                <p>关于校团</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                        <a href="tel:13646018931" class="weui-cell weui-cell_access">
+                            <div class="weui-cell__hd"><img src="~/Areas/XiaoTuan/Contents/img/logo/24/basic3-061.png" alt="" style="width:20px;margin-right:5px;display:block" /></div>
+                            <div class="weui-cell__bd">
+                                <p>联系我们</p>
+                            </div>
+                            <div class="weui-cell__ft"></div>
+                        </a>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div class="weui-tabbar">
+                <a href="/XiaoTuan/Home/HomePage" class="weui-tabbar__item">
+                 
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_button.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">首页</p>
+                </a>
+                <a href="/XiaoTuan/Home/ActivityPage?org_id=" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_article.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">活动</p>
+                </a>
+                <a href="/XiaoTuan/Home/EnrollPage?index=0" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">已报名</p>
+                </a>
+                <a href="/XiaoTuan/Home/StudentPage" class="weui-tabbar__item weui-bar__item--on">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">我的</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>*@
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+      (function (doc, win, undefined) {
+                 var docEl = doc.documentElement,
+                   resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
+                   recalc = function () {
+                     var clientWidth = docEl.clientWidth;
+                     if (clientWidth === undefined) return;
+                     docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+
+                   };
+                 if (doc.addEventListener === undefined) return;
+                 win.addEventListener(resizeEvt, recalc, false);
+                 doc.addEventListener('DOMContentLoaded', recalc, false)
+               })(document, window);
+
+    </script>
+  
+</body>
+</html>

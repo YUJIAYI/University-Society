@@ -1,0 +1,17 @@
+﻿@model Web.ViewModels.Report.Add_M
+@{
+    Layout = ViewData["Layout"].ToString();
+}
+
+@Html.InputFor(o => o.ReportID)
+@Html.InputFor(o => o.ReportName)
+@Html.InputFor(o => o.HeadFields)
+
+@Html.InputFor(o => o.RecordsPerPage)
+@Html.InputFor(o => o.ParaNames)
+@Html.InputFor(o => o.ColunmToShow)
+
+@Html.InputAreaFor(o => o.SqlStr)
+@Html.InputAreaFor(o => o.OperateColum)
+
+

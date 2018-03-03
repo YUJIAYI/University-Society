@@ -1,0 +1,25 @@
+﻿@{
+    var showBackButton = (bool) ViewData["showBackButton"];
+}
+ <!-- We don't need full layout here, because this page will be parsed with Ajax-->
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        @if (showBackButton)
+        {
+            <div class="left">
+                <a class="back link"> <i class="icon icon-back"></i><span>Back</span></a>
+            </div>
+        }
+
+        <div class="center sliding">@ViewData["Title"]</div>
+
+    <div class="right">
+        <a onclick="refresh()" class="icon refresh">
+            <i class="f7-icons">refresh</i>
+        </a>
+    </div>
+
+       
+    </div>
+</div>

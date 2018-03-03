@@ -1,0 +1,15 @@
+﻿
+@model Web.ViewModels.Demo.Form_M
+
+<hr />
+每行4个
+<hr />
+@Html.InputFor(o => o.TestChar, 4)
+@Html.InputFor(o => o.TestDouble, 4)
+@Html.TimeFor(o => o.TestDateTime, 4)
+@Html.SelectFor(o => o.TestString, Model._TestItems, 4)
+@Html.InputAreaFor(o => o.TestChar, 4, "", 400,true)
+@Html.InputAreaFor(o => o.TestChar, 4, "", 400)
+@Html.RichBoxFor(o => o.TestRichText, 4)
+@Html.ContentsFor(o => o._TestContentFile, 4)
+<hr />

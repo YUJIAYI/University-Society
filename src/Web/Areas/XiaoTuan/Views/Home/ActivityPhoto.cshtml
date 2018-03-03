@@ -1,0 +1,94 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.ActivityPhoto_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>活动图片</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+    <style>
+
+    </style>
+</head>
+
+<body ontouchstart>
+
+    <div class="bd">
+        <div class="page__bd">
+            
+                @foreach (var item in Model.Photos)
+                {
+                    <a href="javascript:;" onclick='galleryShow("@item.photo_id");'><div style="width:50%;float:left"><img src="@item.url" style="width:100%" /></div></a>
+                
+                        <div class="weui-gallery" id="@item.photo_id" onclick='galleryHide("@item.photo_id");'>
+                            <span class="weui-gallery__img" style="background-image: url(@item.url);"></span>
+                            <div class="weui-gallery__opr">
+                               <span style="font-size:0.5rem;color:rgb(199,199,199);">发布者 : @item.student.name</span>&nbsp;&nbsp;&nbsp;
+                               <span style="font-size:0.5rem;color:rgb(199,199,199);">发布时间 : @item.time.Value.ToString("yyyy-MM-dd HH:mm")</span>
+                            </div>
+                        </div>
+                 
+                }
+                
+           
+        </div>
+    </div>
+
+
+
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+                $(function () {
+                    FastClick.attach(document.body);
+                });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+                (function (doc, win, undefined) {
+                    var docEl = doc.documentElement,
+                      resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                      recalc = function () {
+                          var clientWidth = docEl.clientWidth;
+                          if (clientWidth === undefined) return;
+                          docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                          console.log(docEl.style.fontSize);
+                      };
+                    if (doc.addEventListener === undefined) return;
+                    win.addEventListener(resizeEvt, recalc, false);
+                    doc.addEventListener('DOMContentLoaded', recalc, false)
+                })(document, window);
+
+
+
+                function galleryShow(id)
+                {
+                    $('#' + id).fadeIn(100);
+                }
+
+                function galleryHide(id) {
+                    $('#' + id).fadeOut(100);
+                }
+
+
+
+    </script>
+</body>
+
+</html>
+
+

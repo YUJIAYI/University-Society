@@ -1,0 +1,227 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.AssessFinishedPage_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>详情信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <div class="active-photo">
+        <img src="@Model.ActivityDetial.activity_photo" />
+        <div class="shadow-prompt">
+            <p class="left">@Model.ActivityDetial.activity_name</p>
+            <p class="right">评分:<span>@Model.AssessAverage</span></p>
+        </div>
+    </div>
+    <div class="weui-cells clear-relative">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>主办方</p>
+            </div>
+            <div class="weui-cell__ft">@Model.ActivityDetial.organization.org_name</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动地点</p>
+            </div>
+            <div class="weui-cell__ft">@Model.ActivityDetial.activity_place</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动时间</p>
+            </div>
+            <div class="weui-cell__ft">@Model.ActivityTime</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动详情</p>
+            </div>
+
+        </div>
+        <div class="cell-style">@Model.ActivityDetial.activity_detail</div>
+        @if (Model.ActivityPhotoNum == 0)
+        {
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>活动图片</p>
+                </div>
+                <div class="weui-cell__ft">
+                    暂无图片
+                </div>
+            </a>
+        }
+        else
+        {
+            <a class="weui-cell weui-cell_access" href="/XiaoTuan/Home/ActivityPhoto?activity_id=@Model.ActivityDetial.activity_id">
+                <div class="weui-cell__bd">
+                    <p>活动图片</p>
+                </div>
+                <div class="weui-cell__ft">
+                     <img src="@Model.ActivityPhoto.FirstOrDefault().url" style="width:50px;height:34px;" />
+                </div>
+            </a>
+        }
+
+    </div>
+    
+        <div style="width:100%;height:3rem;"></div>
+        <div class="weui-cells clear-relative">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>活动反馈</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div class="enrollAssess-head">
+                <div class="title-choice">
+
+                    <div class="active" onclick="changeType(0);">
+                        全部反馈
+                    </div>
+
+                    <div onclick="changeType(1);">
+                        高分反馈
+                    </div>
+
+                    <div onclick="changeType(2);">
+                        低分反馈
+                    </div>
+
+                </div>
+            </div>
+            <div id="AssessBox">
+                @foreach (var item in Model.AssessEnroll)
+            {
+                    <div class="weui-cells__title">@item.student.name&nbsp;&nbsp;<span>@item.evalute_time.Value.ToString("yyyy-MM-dd")</span></div>
+                    <div class="weui-cells">
+                        <a class="weui-cell weui-cell_access" href="javascript:;">
+                            <div class="weui-cell__bd">
+                                <p style="text-indent:1.2rem;">@item.evaluate_content</p>
+                            </div>
+
+                        </a>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+
+        <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+        <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+        <script>
+            $(function () {
+                FastClick.attach(document.body);
+            });
+        </script>
+
+        <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+        <script>
+
+            (function (doc, win, undefined) {
+                var docEl = doc.documentElement,
+                  resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                  recalc = function () {
+                      var clientWidth = docEl.clientWidth;
+                      if (clientWidth === undefined) return;
+                      docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                      console.log(docEl.style.fontSize);
+                  };
+                if (doc.addEventListener === undefined) return;
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false)
+            })(document, window);
+
+            function ChangeDateFormat(val) {
+                if (val != null) {
+                    var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
+                    //月份为0-11，所以+1，月份小于10时补个0
+                    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                    var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                    return date.getFullYear() + "-" + month + "-" + currentDate;
+                }
+                return "";
+            }
+
+            function changeType(index) {
+
+                $.ajax({
+                    type: "get",
+                    url: "/XiaoTuan/Home/AssessState?activity_id=@Model.ActivityDetial.activity_id&index=" + index,
+                    success: function (data) {
+                        if (data == 500)
+                            $.toast("查询有误!");
+                        else {
+                            var html = "";
+                            $.each(data, function (i, item) {
+                                var evalute_time = ChangeDateFormat(item.evalute_time)
+                                html += '<div class="weui-cells__title">' + item.name + '&nbsp;&nbsp;<span>' + evalute_time + '</span></div>'
+                                       + '<div class="weui-cells">'
+                                              + '<a class="weui-cell weui-cell_access" href="javascript:;">'
+                                                    + '<div class="weui-cell__bd">'
+                                                         + '<p style="text-indent:1.2rem;">' + item.evaluate_content + '</p>'
+                                                   + ' </div>'
+
+                                            + ' </a>'
+                                       + '</div>';
+                            })
+                            $("#AssessBox").html(html);
+                        }
+                    }
+
+                });
+            }
+            @*$.get("/XiaoTuan/Home/AssessState?activity_id=@Model.ActivityDetial.activity_id&index=" + index,
+                function (data, status) {
+                    if (status == 'success') {
+                        var html = "";
+                        $.each(data, function (i, item) {
+                            html += '<div class="weui-cells__title">'+item.student.name+'&nbsp;&nbsp;<span>'+item.evalute_time+'</span></div>'
+                                    +'<div class="weui-cells">'
+                                           +'<a class="weui-cell weui-cell_access" href="javascript:;">'
+                                                 +'<div class="weui-cell__bd">'
+                                                      +'<p style="text-indent:1.2rem;">'+item.evaluate_content+'</p>'
+                                                +' </div>'
+
+                                         +' </a>'
+                                    + '</div>';
+                               })
+                        $("#AssessBox").html(html);
+
+                               }
+                                     else {
+                                         $.toast("查询有误!");
+                                     }
+
+
+                               });
+
+                        }*@
+
+            $('.title-choice div').click(function () {
+                var index = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+
+            })
+
+        </script>
+</body>
+
+</html>
+

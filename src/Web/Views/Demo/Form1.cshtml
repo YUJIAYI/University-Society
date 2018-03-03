@@ -1,0 +1,13 @@
+﻿
+@model Web.ViewModels.Demo.Form_M
+
+<hr />
+每行1个
+<hr />
+@Html.InputFor(o => o.TestChar, 1)
+@Html.TimeFor(o => o.TestDateTime, 1)
+@Html.SelectFor(o => o.TestString, Model._TestItems, 1)
+@Html.InputAreaFor(o => o.TestChar, 1)
+@Html.RichBoxFor(o => o.TestRichText, 1)
+@Html.ContentsFor(o => o._TestContentFile, 1)
+<hr />

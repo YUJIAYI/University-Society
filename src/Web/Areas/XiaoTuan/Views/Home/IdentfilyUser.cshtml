@@ -1,0 +1,46 @@
+﻿
+
+@model Web.Areas.XiaoTuan.ViewModels.IdentfilyUser_M
+
+<div class="col-lg-3">
+
+</div>
+<div class="col-lg-6">
+@Html.ShowInputFor(o => o.name,2)
+@Html.ShowInputFor(o => o.sex,2)
+@Html.ShowInputFor(o => o.birthday, 2)
+@Html.ShowInputFor(o => o.school,2)
+@Html.ShowInputFor(o => o.major,2)
+@Html.ShowInputFor(o => o.grade,2)
+@Html.ShowInputFor(o => o.card_number, 2)
+@Html.ShowInputFor(o => o.to_school_time, 2)
+@Html.ShowInputFor(o => o.graduation_time, 2)
+@Html.ShowInputFor(o => o.cell_number,2)
+
+</div>
+<div class="col-lg-3">
+
+</div>
+
+
+<img src="@Model.identfily_pic"/>
+<div class="form-actions fluid">
+    <div class="col-md-offset-5 col-md-8">
+        @if (Model.state == 1)//待审核
+        {
+            <a href="/XiaoTuan/Home/PassIdentfily?id=@Model.userid" class="btn btn-success">认证通过</a>
+            <a href="/XiaoTuan/Home/NoPassIdentfily?id=@Model.userid" + class="btn btn-success">退回</a>
+            <button type="button" class="btn btn-default back">返回</button>
+        }
+        @if (Model.state == 2)//已认证
+        {
+            <a href="/XiaoTuan/Home/NoPassIdentfily?id=@Model.userid" + class="btn btn-success">退回</a>
+            <button type="button" class="btn btn-default back">返回</button>
+        }
+        @if (Model.state == 3)//退回
+        {
+            <a href="/XiaoTuan/Home/PassIdentfily?id=@Model.userid" class="btn btn-success">认证通过</a>
+            <button type="button" class="btn btn-default back">返回</button>
+        }
+    </div>
+</div>

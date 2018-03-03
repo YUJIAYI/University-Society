@@ -1,0 +1,353 @@
+﻿ 
+@model Web.Areas.XiaoTuan.ViewModels.ActivityPage_M
+<!DOCTYPE html>
+<html>
+<head>
+    <title>活动列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+</head>
+
+<body ontouchstart>
+
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+            <div id="tab2" class="weui-tab__bd-item weui-tab__bd-item--active">
+                <div class="list-head">
+                    <!--search-->
+                    <div class="search-box">
+                        <div class="weui-search-bar" id="searchBar">
+                            <form class="weui-search-bar__form">
+                                <div class="weui-search-bar__box">
+                                    <i class="weui-icon-search"></i>
+                                    <input type="search" class="weui-search-bar__input" onkeyup="search()" id="searchInput" placeholder="搜索" required="">
+                                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                                </div>
+                                <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                    <i class="weui-icon-search"></i>
+                                    <span>搜索</span>
+                                </label>
+                            </form>
+                            <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+                        </div>
+                    </div>
+                    <!--search end-->
+
+                    <div class="title-choice">
+            
+                            <div class="active" onclick="changeListState('')">
+                                全部分类
+                            </div>
+                    
+               
+                            <div id="organization" data-target="#Organization" class="open-popup">
+                                相关组织
+                            </div>
+                  
+                      
+                            <div data-target="#Intelligent" class="open-popup">
+                                智能排序
+                            </div>
+                     
+
+                    </div>
+                </div>
+                <div id="Organization" class='weui-popup__container'>
+                    <div class="weui-popup__overlay"></div>
+                    <div class="weui-popup__modal">
+                        <div style="height:4.2rem"></div>
+                        <div class="weui-cells weui-cells_radio">
+                            @foreach (var item in Model.organizationData)
+                            {
+                                <a href="javascript:;" onclick="changeList('@item.org_id','@item.org_name')" class="weui-cell weui-check__label close-popup">
+                                        <div class="weui-cell__bd">
+                                            <p>@item.org_name</p>
+                                        </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div id="Intelligent" class='weui-popup__container'>
+                    <div class="weui-popup__overlay"></div>
+                    <div class="weui-popup__modal">
+                        <div style="height:4.4rem"></div>
+                        <div class="weui-cells weui-cells_radio">
+                            <label class="weui-cell weui-check__label" for="x10">
+                                <div class="weui-cell__bd">
+                                    <p>默认排序</p>
+                                </div>
+                                <div class="weui-cell__ft">
+                                    <input type="radio" class="weui-check" name="IntelligentSorting" id="x10" checked="checked"  value="x10">
+                                    <span class="weui-icon-checked"></span>
+                                </div>
+                            </label>
+                            <label class="weui-cell weui-check__label" for="x11">
+                                <div class="weui-cell__bd">
+                                    <p>报名优先</p>
+                                </div>
+                                <div class="weui-cell__ft">
+                                    <input type="radio" class="weui-check" name="IntelligentSorting" id="x11" value="x11">
+                                    <span class="weui-icon-checked"></span>
+                                </div>
+                            </label>
+                            <label class="weui-cell weui-check__label" for="x12">
+                                <div class="weui-cell__bd">
+                                    <p>热度优先</p>
+                                </div>
+                                <div class="weui-cell__ft">
+                                    <input type="radio" class="weui-check"  name="IntelligentSorting" id="x12"  value="x12">
+                                    <span class="weui-icon-checked"></span>
+                                </div>
+                            </label>
+
+                        </div>
+                        <a href="javascript:;" onclick="IntelSorting();" class="weui-btn weui-btn_primary close-popup">确定</a>
+                    </div>
+                </div>
+                <div style="height:4rem;width:100%;"></div>
+                <div class="page__bd">
+                    <div class="weui-panel weui-panel_access">
+                        <div class="weui-panel__bd" id="ActSearch">
+                          
+                                @foreach (var item in Model.activityData)
+                                {
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity_photo" alt="" width="100%" height="100%" />
+                                        </div>
+                                        <div class="weui-media-box__bd">
+                                            <h4 class="weui-media-box__title">@item.activity_name<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">@item.activity_time.Value.ToString("yyyy-MM-dd")</span></h4>
+                                            <p class="weui-media-box__desc">@item.activity_detail</p>
+                                        </div>
+                                    </a>
+                                }
+                           
+                        </div>
+                    </div>
+                    <div class="clear">
+
+                    </div>
+                </div>
+
+            </div>
+           
+
+            <div class="weui-tabbar">
+                <a href="/XiaoTuan/Home/HomePage" class="weui-tabbar__item">
+                  
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_button.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">首页</p>
+                </a>
+                <a href="/XiaoTuan/Home/ActivityPage?org_id=" class="weui-tabbar__item weui-bar__item--on">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_article.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">活动</p>
+                </a>
+                <a href="/XiaoTuan/Home/EnrollPage?index=0" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">已报名</p>
+                </a>
+                <a href="/XiaoTuan/Home/StudentPage" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">我的</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+      (function (doc, win, undefined) {
+                 var docEl = doc.documentElement,
+                   resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
+                   recalc = function () {
+                     var clientWidth = docEl.clientWidth;
+                     if (clientWidth === undefined) return;
+                     docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+
+                   };
+                 if (doc.addEventListener === undefined) return;
+                 win.addEventListener(resizeEvt, recalc, false);
+                 doc.addEventListener('DOMContentLoaded', recalc, false)
+      })(document, window);
+
+
+      $('.title-choice div').click(function () {
+              var index = $(this).index();
+              $(this).addClass('active').siblings().removeClass('active');
+              
+          })
+   
+      $(document).on("open", ".weui-popup-modal", function () {
+          console.log("open popup");
+      }).on("close", ".weui-popup-modal", function () {
+          console.log("close popup");
+      });
+
+      function search() {
+          $.ajax({
+              type: "get",
+              url: "/XiaoTuan/Home/searchActivity?name=" + $("#searchInput").val(),
+              success: function (data) {
+                  if (data == 500)
+                      $.toast("查询有误!");
+                  else {
+                      console.log(data);
+                      var html = "";
+                      $.each(data, function (i, item) {
+                          html += ' <a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                    + '<div class="weui-media-box__hd">'
+                                        + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" alt="" width="100%" height="100%" />'
+                                    + '</div>'
+                                    + '<div class="weui-media-box__bd">'
+                                            + '<h4 class="weui-media-box__title">' + item.activity_name + '</h4>'
+                                            + '<p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                    + '</div>'
+                                   + '</a>';
+                      })
+                      $("#SByjy").remove();
+                      $("#ActSearch").html(html);
+                  }
+              },
+
+          });
+      }
+
+      function ChangeDateFormat(val) {
+          if (val != null) {
+              var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
+              //月份为0-11，所以+1，月份小于10时补个0
+              var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+              var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+              return date.getFullYear() + "-" + month + "-" + currentDate;
+          }
+          return "";
+      }
+
+      function changeList(org_id, org_name)
+      {
+          $.ajax({
+              type: "get",
+              url: "/XiaoTuan/Home/ActivityPageAjax?org_id=" + org_id,
+              success: function (data) {
+                  if (data == 500)
+                      $.toast("查询有误!");
+                  else {
+                      var html = "";
+                      $.each(data, function (i, item) {
+                          var evalute_time = ChangeDateFormat(item.activity_time)
+                          html += ' <a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                    + '<div class="weui-media-box__hd">'
+                                        + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" alt="" width="100%" height="100%" />'
+                                    + '</div>'
+                                    + '<div class="weui-media-box__bd">'
+                                            + '<h4 class="weui-media-box__title">' + item.activity_name + '<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">' + evalute_time + '</span></h4>'
+                                            + '<p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                    + '</div>'
+                                   + '</a>';
+
+                      })
+
+                      $("#ActSearch").html(html);
+                  }
+              },
+
+          });
+          var org_name = org_name;
+          $("#organization").html(org_name);
+
+      }
+
+      function changeListState(org_id) {
+          $.ajax({
+              type: "get",
+              url: "/XiaoTuan/Home/ActivityPageAjax?org_id=" + org_id,
+              success: function (data) {
+                  if (data == 500)
+                      $.toast("查询有误!");
+                  else {
+                      var html = "";
+                      $.each(data, function (i, item) {
+                          var evalute_time = ChangeDateFormat(item.activity_time)
+                          html += ' <a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                    + '<div class="weui-media-box__hd">'
+                                        + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" alt="" width="100%" height="100%" />'
+                                    + '</div>'
+                                    + '<div class="weui-media-box__bd">'
+                                            + '<h4 class="weui-media-box__title">' + item.activity_name + '<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">' + evalute_time + '</span></h4>'
+                                            + '<p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                    + '</div>'
+                                   + '</a>';
+
+                      })
+
+                      $("#ActSearch").html(html);
+                  }
+              },
+
+          });
+      }
+     
+      function IntelSorting()
+      {
+          var index = $(".weui-check[name='IntelligentSorting']:checked").val();
+          $.ajax({
+              type: "get",
+              url: "/XiaoTuan/Home/ActivityPageAjaxSorting?index=" + index,
+              success: function (data) {
+                  if (data == 500)
+                      $.toast("查询有误!");
+                  else {
+                      var html = "";
+                      $.each(data, function (i, item) {
+                          var evalute_time = ChangeDateFormat(item.activity_time)
+                          html += ' <a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                    + '<div class="weui-media-box__hd">'
+                                        + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" alt="" width="100%" height="100%" />'
+                                    + '</div>'
+                                    + '<div class="weui-media-box__bd">'
+                                            + '<h4 class="weui-media-box__title">' + item.activity_name + '<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">' + evalute_time + '</span></h4>'
+                                            + '<p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                    + '</div>'
+                                   + '</a>';
+
+                      })
+
+                      $("#ActSearch").html(html);
+                  }
+              },
+
+          });
+      }
+  
+      </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+﻿
+@using Qx.Tools.Web.Mvc.Model
+@model Web.ViewModels.Demo.Form_M
+
+@Html.BeginGroup("每行4个")
+    @Html.InputFor(o => o.TestChar, 4)
+    @Html.TimeFor(o => o.TestDateTime, 4)
+    @Html.DataFor(o => o.TestDate, 4)
+    @Html.SelectFor(o => o.TestString, Model._TestItems, 4)
+@Html.Code(
+@"@Html.BeginGroup(#每行4个#)
+    @Html.InputFor(o => o.TestChar, 4)
+    @Html.TimeFor(o => o.TestDateTime, 4)
+    @Html.DataFor(o => o.TestDate, 4)
+    @Html.SelectFor(o => o.TestString, Model._TestItems, 4)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行3个")
+    @Html.InputFor(o => o.TestChar)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.SelectFor(o => o.TestString, Model._TestItems)
+@Html.Code(
+@"@Html.BeginGroup(#每行3个#)
+    @Html.InputFor(o => o.TestChar)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.SelectFor(o => o.TestString, Model._TestItems)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+
+
+
+
+
+@Html.BeginGroup("每行1个")
+    @Html.ContentsFor(o => o._TestContentFile, 1)
+@Html.Code(
+@"@Html.BeginGroup(#每行1个#)
+    @Html.ContentsFor(o => o._TestContentFile, 1)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.Br(true)
+
+@Html.BeginGroup("每行2组", 2)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+@Html.TimeFor(o => o.TestDateTime)
+@Html.Code(
+@"@Html.BeginGroup(#每行2组#, 2)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行2组", 2)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+@Html.Code(
+@"@Html.BeginGroup(#每行2组#, 2)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+    @Html.TimeFor(o => o.TestDateTime)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.Br(true)
+
+@Html.BeginGroup("每行3组", 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.Code(
+@"@Html.BeginGroup(#每行3组#, 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行3组", 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.Code(
+@"@Html.BeginGroup(#每行3组#, 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行3组", 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.Code(
+@"@Html.BeginGroup(#每行3组#, 3)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+    @Html.TimeFor(o => o.TestDateTime, 2)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.Br(true)
+
+@Html.BeginGroup("每行4组", 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginGroup(#每行4组#, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行4组", 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginGroup(#每行4组#, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行4组", 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginGroup(#每行4组#, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+@Html.BeginGroup("每行4组", 4)
+    @Html.TimeFor(o => o.TestDateTime,1)
+@Html.Code(
+@"@Html.BeginGroup(#每行4组#, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndGroup()"
+)
+@Html.EndGroup()
+
+
+@Html.BeginPanel("每行4组-绿色",Color.Green, 4)
+@Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginPanel(#每行4组 - 绿色#,Color.Green, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndPanel()"
+)
+@Html.EndPanel()
+
+@Html.BeginPanel("每行4组-橙色", Color.Orange, 4)
+@Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginPanel(#每行4组 - 橙色#,Color.Orange, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndPanel()"
+)
+@Html.EndPanel()
+
+@Html.BeginPanel("每行4组-红色", Color.Red, 4)
+@Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginPanel(#每行4组 - 红色#,Color.Red, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndPanel()"
+)
+@Html.EndPanel()
+
+@Html.BeginPanel("每行4组-浅蓝色", Color.LightBlue, 4)
+@Html.TimeFor(o => o.TestDateTime, 1)
+@Html.Code(
+@"@Html.BeginPanel(#每行4组-浅蓝色#,Color.LightBlue, 4)
+    @Html.TimeFor(o => o.TestDateTime, 1)
+@Html.EndPanel()"
+)
+@Html.EndPanel()
+
+
+
+
+

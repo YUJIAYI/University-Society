@@ -1,0 +1,80 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关于我们</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <article class="weui-article">
+      
+        <section>
+            <h2 class="title">校团</h2>
+            <section>
+                <h3>项目背景</h3>
+                <p>
+                    考虑到当前我们传统在校课外活动宣传的局限性，我们通过互联网+的形式在线上进行活动宣传活动报名能够更好的发挥活动的效果，让更多的人参与其中。
+                </p>
+                @*<p>
+                    <img src="./images/pic_article.png" alt="">
+                    <img src="./images/pic_article.png" alt="">
+                </p>*@
+            </section>
+            <section>
+                <h3>主要功能</h3>
+                <p>
+                    活动查看/活动报名/取消报名/活动收藏/组织关注/活动评价/活动图片分享
+                </p>
+            </section>
+        </section>
+    </article>
+
+
+
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+                $(function () {
+                    FastClick.attach(document.body);
+                });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+                (function (doc, win, undefined) {
+                    var docEl = doc.documentElement,
+                      resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                      recalc = function () {
+                          var clientWidth = docEl.clientWidth;
+                          if (clientWidth === undefined) return;
+                          docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                          console.log(docEl.style.fontSize);
+                      };
+                    if (doc.addEventListener === undefined) return;
+                    win.addEventListener(resizeEvt, recalc, false);
+                    doc.addEventListener('DOMContentLoaded', recalc, false)
+                })(document, window);
+
+    </script>
+</body>
+
+</html>
+
+

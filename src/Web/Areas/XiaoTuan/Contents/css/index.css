@@ -1,0 +1,474 @@
+﻿body {
+}
+
+/*-------------------------------------------------------------------------------------*/
+
+/*---------------------------------------home------------------------------------------*/
+.search-box
+{
+    width:100%;
+    position:fixed;
+}
+
+.banner
+{
+    width:100%;
+}
+.banner img
+{
+    width:100%;
+}
+
+  .swiper-container {
+      width: 100%;
+} 
+
+.swiper-container img {
+    display: block;
+    width: 100%;
+}
+.go {
+   list-style: none;
+   overflow: hidden;
+   margin-top: 0px;
+   z-index: 0;
+}
+.go li {
+   line-height: 22px;
+   height: 22px;
+   color:rgb(109,109,109);
+   font-size:0.6rem;
+}
+
+.home-msg
+{
+    width:90%;
+    margin:0 auto; 
+    height:2.0rem;
+    overflow:hidden;
+    line-height:2.0rem;
+    text-align:center;
+}
+
+.home-msg a
+{ 
+    display: inline-block;
+    table-layout: fixed;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:100%;
+    font-size:0.6rem;
+    color:rgb(109,109,109);
+}
+
+.home-msg span
+{
+    font-size:0.5rem;
+    color:red;
+}
+
+  .home-menu
+  {
+      width:96%;
+      margin:0 auto;
+  }
+  .guess-like
+  {
+      text-align:center;
+      font-size:0.6rem;
+      color:rgb(69,69,69);
+      padding:0rem 0 0.6rem 0;
+  }
+  .page-list .hd
+  {
+      font-size:0.7rem;
+  }
+    .page-list .bd
+  {
+      font-size:0.6rem;
+      color:rgb(169,169,169);
+      table-layout: fixed;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+    .clear
+    {
+        width:100%;
+        height:60px;
+    }
+    .weui-media-box__title
+    {
+        font-size:0.7rem;
+    }
+
+/*-------------------------------------------------------------------------------------*/
+
+/*---------------------------------------list----------------------------------------*/
+
+ .list-head
+ {
+     width:100%;
+     height:4.1rem;
+     position:fixed;
+     z-index:100;
+
+ }
+  .list-head .title-choice
+{
+     width:100%;
+     height:2.1rem;
+     line-height:2rem;
+     font-family:"微软雅黑";
+     overflow:hidden;
+     background:rgb(255,255,255);
+     margin-top: 2rem;
+
+}
+  .list-head .title-choice div
+  { 
+      width:33.3%;
+      float:left;
+      text-align:center;
+      line-height:2rem;
+      font-size:0.6rem;
+      color:rgb(109,109,109);
+      border-bottom:1px solid rgb(240,240,240); 
+      overflow:hidden;
+      height:2rem;
+  }
+/*-------------------------------------------------------------------------------------*/
+
+/*---------------------------------------enroll----------------------------------------*/
+ .enroll-head
+ {
+     width:100%;
+     height:2rem!important;
+     position:fixed;
+     z-index:1;
+
+ }
+
+ .enroll-head .title-choice
+{
+      width:100%;
+     height:2.1rem;
+     line-height:2rem;
+     font-family:"微软雅黑";
+     overflow:hidden;
+     background:rgb(255,255,255);
+
+}
+  .enroll-head .title-choice div
+  { 
+      width:33.3%;
+      float:left;
+      text-align:center;
+      line-height:2rem;
+      font-size:0.6rem;
+      color:rgb(109,109,109);
+      border-bottom:1px solid rgb(240,240,240); 
+  }
+
+  .weui-panel__ft
+  {
+      text-align:right;
+      padding:0 1rem 0.4rem 0;
+  }
+
+  .title-choice .active
+  {
+      color:rgb(255,97,0)!important;
+      border-bottom:2px solid rgb(255,97,0)!important;
+  }
+
+ /*-------------------------------------------------------------------------------------*/
+
+/*---------------------------------------  mine ----------------------------------------*/
+.mine-head
+{
+    width:100%;
+    height:2rem;
+    padding:3rem 2rem 2rem 2rem;
+    background:rgb(62,61,60);
+}
+.mine-head img
+{
+    float:left;
+    width:2.5rem;
+    height:2.5rem;
+}
+.mine-head div
+{
+    float:left;
+    margin-left:1rem;
+    padding:0.2rem 0;
+    height:2.5rem;
+}
+.mine-head div p
+{
+    font-size:0.7rem;
+    color:rgb(249,249,249);
+}
+.mine-head a
+{
+    display:inline-block;
+    font-size:0.5rem;
+    color:rgb(219,219,219);
+}
+.weui-cell__bd p{
+    font-size:0.6rem!important;
+    color:rgb(69,69,69)!important;
+}
+ .mine-choice-head
+ {
+     width:100%;
+     height:2.5rem;
+     border-bottom:1px solid rgb(229,229,229); 
+ }
+ .mine-choice-head .title-choice
+{
+     width:100%;
+     height:2.5rem;
+     font-family:"微软雅黑";
+     overflow:hidden;
+     background:rgb(255,255,255);
+
+}
+  .mine-choice-head .title-choice div
+  { 
+      width:33.3%;
+      float:left;
+      text-align:center;
+      line-height:2.5rem;
+      font-size:0.6rem;
+      color:rgb(69,69,69);
+    
+  }
+
+/*-------------------------------------------------------------------------------------*/
+
+/*-------------------------------------page active--------------------------------------*/
+
+ .page-head
+ {
+     text-align:center;
+     height:2rem;
+     line-height:2rem;
+     background:rgb(69,69,69);
+     color:rgb(239,239,239);
+     font-family:"微软雅黑";
+     border-bottom:1px solid rgb(109,109,109);
+ }
+  .page-head a{
+     color:rgb(239,239,239);
+     font-family:"微软雅黑";
+     font-size:0.6rem;
+  
+  }
+  .page-head .left{
+      text-align:left;
+      padding-left:1rem;
+  }
+  .active-photo
+  {
+      width:100%;
+  }
+    .active-photo img
+  {
+      width:100%;
+  }
+    .shadow-prompt
+    {
+        width:100%;
+        z-index:1;
+        height:2rem;
+        position:relative;
+        background-color:rgba(69,69,69,0.6);
+        top:-2.2rem;
+        line-height:2rem;
+        overflow:hidden;
+    }
+    .shadow-prompt .left
+    {
+        float:left;
+        color:rgb(229,229,229);
+        font-family:"微软雅黑";
+        font-size:0.9rem;
+        padding-left:0.6rem;
+
+    }
+    .shadow-prompt .right
+    {
+        float:right;
+        color:rgb(229,229,229);
+        font-family:"微软雅黑";
+        font-size:0.6rem;
+        padding-right:0.7rem;
+    }
+    .clear-relative
+    {
+        margin-top:-2.2rem;
+    }
+
+    .weui-cell__ft
+    {
+        font-size:0.6rem;
+    }
+    .footer-bottom
+    {
+      width: 100%;
+      height: 2.4rem;
+      float: left;
+    }
+     .footer-bottom a
+    {
+      display: block;
+    }
+     .footer-bottom div
+    {
+      height: 2.4rem;
+      float: right;
+      
+     
+      color: rgb(100,100,100);
+      text-align: center;
+    }
+
+    .footer-bottom .left
+    {
+       width: 18%;
+       font-size: 0.5rem;
+       border-right: 1px solid rgb(240,240,240);
+       border-top: 1px solid rgb(240,240,240);
+       background:rgb(255,255,255);
+       
+    }
+        .footer-bottom .left p
+    {
+       padding:0 0;
+       
+    }
+     .footer-bottom .left img
+    {
+      width:20px;
+      height:20px;
+      margin-top:8px;  
+    }
+    .footer-bottom .middle
+    { 
+      line-height: 2.4rem;
+      width: 46%;
+      font-size: 0.6rem;
+      border-top: 1px solid rgb(240,240,240);
+      background:rgb(255,255,255);
+    }
+    .footer-bottom .right
+    { line-height: 2.4rem;
+      width: 35%;
+      color: rgb(249,249,249);
+       border-left: 1px solid rgb(240,240,240);
+       background-color: rgb(255,100,0);
+       border-top: 1px solid rgb(255,100,0);
+    }
+     .footer-bottom .end
+    {line-height: 2.4rem;
+      width: 35%;
+      color: rgb(249,249,249);
+       border-left: 1px solid rgb(240,240,240);
+       background-color: rgb(109,109,109);
+       border-top: 1px solid rgb(109,109,109);
+    }
+    .weui-footer_fixed-bottom
+    {
+      bottom: 0rem!important;
+    }
+
+    .weui-input
+    {
+        font-size:0.6rem;
+    }
+    .weui-cells
+    {
+        font-size:0.7rem;
+    }
+
+     .enrollAssess-head
+ {
+     width:100%;
+     height:2rem!important;
+     z-index:1;
+
+ }
+
+ .enrollAssess-head .title-choice
+{
+      width:100%;
+     height:2.1rem;
+     line-height:2rem;
+     font-family:"微软雅黑";
+     overflow:hidden;
+     background:rgb(255,255,255);
+
+}
+  .enrollAssess-head .title-choice div
+  { 
+      width:33.3%;
+      float:left;
+      text-align:center;
+      line-height:2rem;
+      font-size:0.6rem;
+      color:rgb(109,109,109);
+      border-bottom:1px solid rgb(240,240,240); 
+  }
+  .weui-tabbar
+  {
+      background:rgb(53,52,58);
+      padding:5px 0px;
+  }
+  .weui-tabbar__item.weui-bar__item--on .weui-tabbar__label
+  {
+      color:rgb(209,209,209);
+  }
+  .weui-dialog__btn
+  {
+      color:rgb(255,0,0);
+  }
+
+  .cell-style
+  {
+      font-size: 0.6rem;text-align: left;width:90%;text-indent:1.2rem;margin:0 auto 0.6rem auto;color:#999;
+  }
+  .DitialClear
+  {
+      width:100%;
+      height:2.4rem;
+  }
+  .toolbar .title
+  {
+      font-size:0.7rem;
+      line-height:2rem;
+      height:2rem;
+  }
+  .toolbar .picker-button
+  {
+      font-size:0.7rem;
+      line-height:2rem;
+      height:2rem;
+  }
+  .picker-item
+  {
+        font-size:0.8rem;
+  }
+  .toolbar .toolbar-inner
+  {
+       height:2rem;
+  }
+  .swiper-pagination-bullet-active
+  {
+      background:rgb(69,69,69);
+  }
+  
+
+

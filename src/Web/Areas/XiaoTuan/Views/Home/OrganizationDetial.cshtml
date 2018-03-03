@@ -1,0 +1,203 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.OrganizationDetial_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>组织详情</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <div class="active-photo">
+
+        <img src="@Model.organizationDetial.org_logo" />
+        <div class="shadow-prompt">
+            <p class="left">@Model.organizationDetial.org_name</p>
+            @*<p class="right">已有<span>@Model.activityEnrollNum</span>人报名</p>*@
+        </div>
+    </div>
+
+    <div class="weui-cells clear-relative">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>负责人</p>
+            </div>
+            <div class="weui-cell__ft">@Model.userName</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>成立时间</p>
+            </div>
+            <div class="weui-cell__ft">@Model.organizationBeginTime</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>组织介绍</p>
+            </div>
+
+        </div>
+        <div class="cell-style">@Model.organizationDetial.org_introduce</div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>内部建设</p>
+            </div>
+
+        </div>
+        <div class="cell-style">@Model.organizationDetial.Internal_construction</div>
+
+
+    </div>
+    <div style="width:100%;height:0.6rem;"></div>
+    <div class="weui-flex">
+        <div class="weui-flex__item"><div class="guess-like">- 相关活动 -</div></div>
+    </div>
+    <!--page list-->
+    <div class="page__bd">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__bd">
+
+                @foreach (var item in Model.activityWaiting)
+                {
+                <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="@item.activity_photo" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">@item.activity_name<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">@item.activity_time.Value.ToString("yyyy-MM-dd")</span></h4>
+                        <p class="weui-media-box__desc">@item.activity_detail</p>
+                    </div>
+                </a>
+                }
+
+                @foreach (var item in Model.activityFinished)
+                {
+                <a href="/XiaoTuan/Home/AssessFinishedPage?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="@item.activity_photo" alt="" width="100%" height="100%" />
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">@item.activity_name<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">已过期</span></h4>
+                        <p class="weui-media-box__desc">@item.activity_detail</p>
+                    </div>
+                </a>
+                }
+
+            </div>
+            @*<div class="clear">
+
+                </div>*@
+
+        </div>
+    </div>
+    <div class="DitialClear">
+
+    </div>
+    <div class="weui-footer_fixed-bottom footer-bottom">
+
+        <div class="end">
+            报名截至
+        </div>
+
+        <div class="middle">
+
+        </div>
+
+        @if (@Model.concernsState == 0)
+        {
+            <a href="javascript:void(0);" onclick='concerns("@Model.organizationDetial.org_id",0)'>
+
+                <div class="left">
+                    <img src="~/Areas/XiaoTuan/Contents/img/logo/collection.png" />
+                    <p>关注</p>
+                </div>
+            </a>
+        }
+        else
+        {
+            <a href="javascript:void(0);" onclick='concerns("@Model.organizationDetial.org_id",1)'>
+
+                <div class="left">
+                    <img src="~/Areas/XiaoTuan/Contents/img/logo/red-collection.png" />
+                    <p>已关注</p>
+                </div>
+            </a>
+        }
+
+    </div>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+        $(function () {
+            FastClick.attach(document.body);
+        });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+        (function (doc, win, undefined) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (clientWidth === undefined) return;
+                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                  console.log(docEl.style.fontSize);
+              };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+
+        function concerns(org_id, index) {
+
+            $.post("/XiaoTuan/Home/concerns?org_id=" + org_id + "&index=" + index,
+                      {
+
+                      },
+                      function (data, status) {
+                          if (status == 'success') {
+                              if (index == 0) {
+                                  $.toast("关注成功!");
+                                  setTimeout(function () {
+                                      location.reload();
+                                  }, 1000);
+                              }
+                              else {
+                                  $.toast("取消成功!");
+                                  setTimeout(function () {
+                                      location.reload();
+                                  }, 1000);
+                              }
+
+                          }
+                          else {
+                              $.toast("服务出错!", 'cancel');
+                              setTimeout(function () {
+                                  location.reload();
+                              }, 1000);
+                          }
+
+                      });
+
+        }
+
+    </script>
+</body>
+
+</html>

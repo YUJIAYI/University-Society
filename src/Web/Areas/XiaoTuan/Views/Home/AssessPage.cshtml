@@ -1,0 +1,267 @@
+﻿
+
+@model  Web.Areas.XiaoTuan.ViewModels.AssessPage_M
+@{
+    var uploadAction = "/Base/UploadHandle";
+    var saveDirectory = "/Areas/XiaoTuan/Contents/photo/";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>评价页面</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <div class="bd">
+        <div class="page__bd">
+            <div class="weui-cells weui-cells_form">
+               
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label for="date" class="weui-label">评价分数</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" id="ActivityGrade" type="text" value="">
+                    </div>
+                </div>
+                
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea" placeholder="请输入具体评价" maxlength="100" id="AssessText" onkeyup="Calculated()"></textarea>
+                            <div class="weui-textarea-counter"><span id="textNum">0</span>/100</div>
+                        </div>
+                    </div>
+                <div class="weui-cells">
+                    <div class="container js_container">
+                        <!--图片放大容器 style的透明度一定是0.8-->
+                        <div class="weui-gallery" id="gallery" style="display: none;">
+                            <span class="weui-gallery__img" id="galleryImg" style="background-image: url(../img/doctor/55.jpg)"></span>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <div class="weui-uploader">
+                                    <div class="weui-uploader__hd">
+                                        <p class="weui-uploader__title">图片上传</p>
+                                        <div class="weui-uploader__info"></div>
+                                    </div>
+                                    <div class="weui-uploader__bd">
+                                        <ul class="weui-uploader__files" id="uploaderFiles"></ul>
+                                        <div class="weui-uploader__input-box">
+                                            <input id="uploaderInput" name="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="piclist" name="piclist" value="" style="display: none" />
+               
+               
+            </div>
+            <br />
+            <div style="width:90%;margin:0 auto;">
+                <a href="javascript:;" onclick="submit()" class="weui-btn weui-btn_plain-default">提交评论</a>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery.iframe-transport.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery.ui.widget.js"></script>
+    <script>
+        $(function () {
+            FastClick.attach(document.body);
+        });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery.fileupload.js"></script>
+
+    <script>
+
+        (function (doc, win, undefined) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (clientWidth === undefined) return;
+                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                  console.log(docEl.style.fontSize);
+              };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+
+
+        function submit() {
+            var ActivityGrade = $("#ActivityGrade").val();
+            var AssessText = $("#AssessText").val();
+            var piclist = $("#piclist").val();
+            if (ActivityGrade && AssessText) {
+                $.post("/XiaoTuan/Home/AssessPage",
+             {
+                 orgFormId: "@Model.ActivityAssess.org_form_id",
+                 ActivityGrade: ActivityGrade,
+                 AssessText: AssessText,
+                 piclist:piclist
+             },
+             function (data, status) {
+                 if (status == 'success') {
+                     $.toast("评价成功!");
+                     setTimeout(function () {
+                         window.location.href = "/XiaoTuan/Home/EnrollPage?index=0";
+                     }, 1500);
+                 }
+                 else {
+                     $.toast("评价失败!", 'cancel');
+                 }
+
+             });
+            }
+            else {
+                $.toast('请填写完整信息', 'cancel');
+            }
+        }
+
+        $("#ActivityGrade").picker({
+            title: "请选择评分",
+            cols: [
+              {
+                  textAlign: 'center',
+                  values: ['0', '1', '2', '3', '4', '5']
+              }
+            ],
+            onChange: function (p, v, dv) {
+                console.log(p, v, dv);
+            },
+            onClose: function (p, v, d) {
+                console.log("close");
+            }
+        });
+
+        function Calculated()
+        {
+            $('#textNum').html($('#AssessText').val().length);
+        }
+
+    </script>
+
+    <script>
+    var BarImageWidth = 225;
+
+    $('#uploaderInput').fileupload({
+        //dataType: "json",//返回类型
+        autoUpload: true, //自动上传
+        url: "@(uploadAction + "?saveDirectory=" + saveDirectory)", //请求传递的路径
+        limitConcurrentUploads: 1, //限制并发数
+        sequentialUploads: true, //设置为true保证文件顺序存储而不是同步存储
+        progressInterval: 100, //触发进度条事件的最小间隔事件，以毫秒为单位
+      //  maxChunkSize: 10000, //块状分段存储，允许块的最大长度
+
+        success: function (result) {
+           console.log(result);
+            var oldpic = $("#piclist").val();
+            var pic = oldpic + result.filePath + ';';
+            console.log(pic);
+            console.log(result.filePath);
+            $("#piclist").val(pic);
+            console.log($("#piclist").val());
+        },
+        //设置文件上传完毕事件的回调函数
+        add: function (e, data) {
+            //开始上传
+            //var Begin = "提示:上传中，请稍后...";
+            //var thethat = this;
+            console.log("提示:上传中，请稍后...");
+            data.submit();
+            console.log(data);
+        },
+
+        //设置上传进度事件的回调函数
+        progress: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            //data.context.find('.bar').css('width', progress + '%');
+            var CurrentBarWidth = progress / 100 * BarImageWidth;
+            @*//$('#@("BarArea_"+id) img').css({ "width": CurrentBarWidth, "height": 14 });
+            //$('#@("MessageContent_"+id)').html(progress + '%');*@
+            console.log(CurrentBarWidth);
+        },
+    });
+
+    </script>
+    <script>
+
+    $(function () {
+        var t = 0;
+        //var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)" id="'+"imgli"+t+'"></li>',
+        $gallery = $("#gallery"),
+            $galleryImg = $("#galleryImg"),
+            $uploaderInput = $("#uploaderInput"),
+            $uploaderFiles = $("#uploaderFiles");
+
+        $uploaderInput.on("change", function (e) {
+
+            var src,
+                url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+              //  console.log(file);
+              //  var oldpic = $("#piclist").val();
+              //  var pic = oldpic +file.name+';';
+              ////  $("#piclist").val(pic);
+              //  console.log($("#piclist").val());
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+                var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)" id="' + "imgli" + t + '">' +
+                    //'<input type="file" name="uploaderInput" value="' + file + '" style="display:none" multiple="" />' +
+                    '</li>';
+                //    alert(file);
+                t++;
+                $uploaderFiles.append($(tmpl.replace('#url#', src)));
+
+            }
+        });
+        $uploaderFiles.on("click", "li", function () {
+            $galleryImg.attr("style", this.getAttribute("style"));
+            var myid = this.getAttribute("id");
+            //$("#deleid").click(function () {
+            //    $("#" + myid).remove();
+            //});
+            $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function () {
+            $gallery.fadeOut(100);
+        });
+
+    });
+    </script>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,208 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.PersonalInformation_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+    <div class="bd">
+        <div class="page__bd">
+            @if (Model.studentData.state == 2)
+            {
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>个人姓名</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.name</div>
+                    </div>
+                    <a class="weui-cell weui-cell_access" href="javascript:;">
+                        <div class="weui-cell__bd">
+                            <p>头像</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <img src="@Model.studentData.photo" style="width:30px;height:30px;" />
+                        </div>
+                    </a>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>性别</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.sex</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>生日</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentDataBirth</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>学校</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.school</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>专业</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.major</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>年级</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.grade</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>学生卡号</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.card_number</div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>手机号</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.cell_number</div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>个人姓名</p>
+                        </div>
+                        <div class="weui-cell__ft">@Model.studentData.name</div>
+                    </div>
+                    <a class="weui-cell weui-cell_access" href="javascript:;">
+                        <div class="weui-cell__bd">
+                            <p>头像</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <img src="@Model.studentData.photo" style="width:30px;height:30px;" />
+                        </div>
+                    </a>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>性别</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>生日</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>学校</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>专业</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>年级</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>学生卡号</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>手机号</p>
+                        </div>
+                        <div class="weui-cell__ft"></div>
+                    </div>
+                </div>
+            }
+
+            <br/>
+            <div style="width:90%;margin:0 auto;">
+                <a href="javascript:;" id='show-actions' class="weui-btn weui-btn_warn">退出登录</a>
+            </div>
+            
+        </div>
+     </div>
+
+
+
+
+            <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+            <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+            <script>
+                $(function () {
+                    FastClick.attach(document.body);
+                });
+            </script>
+
+            <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+            <script>
+
+                (function (doc, win, undefined) {
+                    var docEl = doc.documentElement,
+                      resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                      recalc = function () {
+                          var clientWidth = docEl.clientWidth;
+                          if (clientWidth === undefined) return;
+                          docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                          console.log(docEl.style.fontSize);
+                      };
+                    if (doc.addEventListener === undefined) return;
+                    win.addEventListener(resizeEvt, recalc, false);
+                    doc.addEventListener('DOMContentLoaded', recalc, false)
+                })(document, window);
+
+                $(document).on("click", "#show-actions", function () {
+                    $.actions({
+                        title: "确定退出登陆？",
+                        onClose: function () {
+                            console.log("close");
+                        },
+                        actions: [
+                          {
+                              text: "确定",
+                              className: 'color-danger',
+                              onClick: function () {
+                                  $.alert("退出成功");
+                              }
+                          }
+                        ]
+                    });
+                });
+
+            </script>
+</body>
+
+</html>
+

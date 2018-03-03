@@ -1,0 +1,401 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.EnrollPage_M
+@{ 
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的报名</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+</head>
+
+<body ontouchstart>
+
+    <div class="weui-tab">
+        <div class="weui-tab__bd">
+            <div id="tab3" class="weui-tab__bd-item weui-tab__bd-item--active">
+                @if (Model.userActivityNum == 0)
+                {
+                    <div class="weui-msg">
+                        <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg-primary"></i></div>
+                        <div class="weui-msg__text-area">
+                            <h2 class="weui-msg__title">列表为空</h2>
+                            <p class="weui-msg__desc">暂时还没有参与任何活动，快去报名吧！</p>
+                        </div>
+                        @*<div class="weui-msg__opr-area">
+                                <p class="weui-btn-area">
+                                    <a href="javascript:;" class="weui-btn weui-btn_primary">推荐操作</a>
+                                    <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>
+                                </p>
+                            </div>*@
+                       
+                    </div>
+                }
+                else
+                {
+                    <div class="enroll-head">
+                        <div class="title-choice">
+
+                            <div class="active" onclick="changeList('0')">
+                                全部
+                            </div>
+
+
+                            <div onclick="changeList('1')">
+                                等待参加
+                            </div>
+
+
+                            <div onclick="changeList('2')">
+                                已参加
+                            </div>
+
+                        </div>
+                    </div>
+                    <div style="height:2rem;width:100%;"></div>
+                    <div class="page__bd" id="listLoead">
+                        @foreach (var item in Model.userActivitySuccessed)
+                        {
+                            <div class="weui-panel weui-panel_access">
+                                <div class="weui-panel__hd">@item.activity.organization.org_name<span style="float:right">已报名</span></div>
+                                <div class="weui-panel__bd">
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity.activity_photo" width="100%" height="100%">
+                                        </div>
+                                        <div class="weui-media-box__bd">
+                                            <h4 class="weui-media-box__title">@item.activity.activity_name</h4>
+                                            <p class="weui-media-box__desc">@item.activity.activity_detail</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="weui-panel__ft">
+                                    <a href="javascript:void(0);" class="weui-btn weui-btn_mini weui-btn_default" onclick='galleryShow("@item.org_form_id")'>签到二维码</a>
+                                    <div class="weui-gallery" id="@item.org_form_id" onclick='galleryHide("@item.org_form_id");'>
+                                        <span class="weui-gallery__img" style="color:red;background-image: url(/Demo/TestQR?content=http://@ViewData["CurrentHost"]/XiaoTuan/Home/ChangeStatus?org_form_id=@item.org_form_id" id="span-@item.org_form_id"></span>
+                                    </div>
+                                    <a href="javascript:void(0);" id="show-confirm" onclick='cancelEnroll("@item.org_form_id")' class="weui-btn weui-btn_mini weui-btn_default">取消报名</a>
+
+                                </div>
+                            </div>
+                        }
+                        @foreach (var item in Model.userActivityFinished)
+                        {
+                            <div class="weui-panel weui-panel_access">
+                                <div class="weui-panel__hd">@item.activity.organization.org_name<span style="float:right">已参加</span></div>
+                                <div class="weui-panel__bd">
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity.activity_photo" width="100%" height="100%">
+                                        </div>
+                                        <div class="weui-media-box__bd">
+                                            <h4 class="weui-media-box__title">@item.activity.activity_name</h4>
+                                            <p class="weui-media-box__desc">@item.activity.activity_detail</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="weui-panel__ft">
+
+                                    <a href="/XiaoTuan/Home/AssessPage?orgFormId=@item.org_form_id" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">活动评价</a>
+                                </div>
+
+                            </div>
+                        }
+                        @foreach (var item in Model.userActivityAssessFinished)
+                        {
+                            <div class="weui-panel weui-panel_access">
+                                <div class="weui-panel__hd">@item.activity.organization.org_name<span style="float:right">已参加</span></div>
+                                <div class="weui-panel__bd">
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity.activity_photo" width="100%" height="100%">
+                                        </div>
+                                        <div class="weui-media-box__bd">
+                                            <h4 class="weui-media-box__title">@item.activity.activity_name</h4>
+                                            <p class="weui-media-box__desc">@item.activity.activity_detail</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="weui-panel__ft">
+                                    <a href="/XiaoTuan/Home/AssessFinishedPage?activity_id=@item.activity.activity_id" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+                                </div>
+
+                            </div>
+                        }
+                        @foreach (var item in Model.userActivityFail)
+                        {
+                            <div class="weui-panel weui-panel_access">
+                                <div class="weui-panel__hd">@item.activity.organization.org_name<span style="float:right">已取消</span></div>
+                                <div class="weui-panel__bd">
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity.activity_photo" width="100%" height="100%">
+                                        </div>
+                                        <div class="weui-media-box__bd">
+                                            <h4 class="weui-media-box__title">@item.activity.activity_name</h4>
+                                            <p class="weui-media-box__desc">@item.activity.activity_detail</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="weui-panel__ft">
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity.activity_id" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>
+                                </div>
+
+                            </div>
+                        }
+
+                        <div class="clear">
+
+                        </div>
+
+                    </div>
+                }
+                
+            </div>
+
+
+            <div class="weui-tabbar">
+                <a href="/XiaoTuan/Home/HomePage" class="weui-tabbar__item">
+                    @*<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">1</span>*@
+                    <div class="weui-tabbar__icon" >
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_button.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">首页</p>
+                </a>
+                <a href="/XiaoTuan/Home/ActivityPage?org_id=" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_article.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">活动</p>
+                </a>
+                <a href="/XiaoTuan/Home/EnrollPage?index=0" class="weui-tabbar__item weui-bar__item--on">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">已报名</p>
+                </a>
+                <a href="/XiaoTuan/Home/StudentPage" class="weui-tabbar__item">
+                    <div class="weui-tabbar__icon">
+                        <img src="~/Areas/XiaoTuan/Contents/img/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui-tabbar__label">我的</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>*@
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+        $(function () {
+            FastClick.attach(document.body);
+        });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+        (function (doc, win, undefined) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (clientWidth === undefined) return;
+                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+
+              };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+
+        function cancelEnroll(org_form_id) {
+            $.confirm("您确定要取消该活动的报名?", "取消报名", function () {
+                $.post("/XiaoTuan/Home/CancelEnroll?org_form_id=" + org_form_id,
+                      {
+
+                      },
+                      function (data, status) {
+                          if (status == 'success') {
+                              $.toast("取消成功!");
+                              setTimeout(function () {
+                                  location.reload();
+                              }, 1000);
+                          }
+                          else {
+                              $.toast("取消失败!");
+                          }
+
+                      });
+
+            }, function () {
+                $.toast("取消操作!");
+            });
+
+        }
+
+        $(document).on("open", ".weui-popup-modal", function () {
+            console.log("open popup");
+        }).on("close", ".weui-popup-modal", function () {
+            console.log("close popup");
+        });
+
+        function galleryShow(id) {
+            $('#' + id).fadeIn(100);
+        }
+
+        function galleryHide(id) {
+            $('#' + id).fadeOut(100);
+        }
+
+        function changeList(index) {
+
+            $.ajax({
+                type: "get",
+                url: "/XiaoTuan/Home/EnrollPageAjax?index=" + index,
+                success: function (data) {
+
+                    if (data == 500)
+                        $.toast("查询有误!");
+                    else {
+                        var html = "";
+                        $.each(data, function (i, item) {
+                           if(item.state==0)
+                            {
+                                html += '  <div class="weui-panel weui-panel_access">'
+                                                         + '<div class="weui-panel__hd">' + item.org_name + '<span style="float:right">已报名</span></div>'
+                                                                           + '<div class="weui-panel__bd">'
+                                                                             + '<a href="/XiaoTuan/Home/ActivityDetial?activity_id='+item.activity_id+'" class="weui-media-box weui-media-box_appmsg">'
+                                                                             + '<div class="weui-media-box__hd">'
+                                                                             + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" width="100%" height="100%" >'
+                                                                          + '</div>'
+                                                                        + ' <div class="weui-media-box__bd">'
+                                                                            + ' <h4 class="weui-media-box__title">' + item.activity_name + '</h4>'
+                                                                            + ' <p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                                                        + ' </div>'
+                                                                       + '</a>'
+                                                            + ' </div>'
+                                                            + ' <div class="weui-panel__ft">'
+                                                                 + '<a href="javascript:void(0);" class="weui-btn weui-btn_mini weui-btn_default" onclick=\'galleryShow("'+item.org_form_id+'")\'>签到二维码</a>&nbsp;'
+                                                                 + '<div class="weui-gallery" id="'+item.org_form_id+'" onclick=\'galleryHide("'+item.org_form_id+'");\'>'
+                                                                         + '<span class="weui-gallery__img" style="color:red;background-image: url(/Demo/TestQR?content=http://@ViewData["CurrentHost"]/XiaoTuan/Home/ChangeStatus?org_form_id='+item.org_form_id+'" id="span-'+item.org_form_id+'"></span>'
+                                                                 + '</div>'
+                                                                 + '<a href="javascript:void(0);" id="show-confirm" onclick=\'cancelEnroll("'+item.org_form_id+'")\' id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">取消报名</a>'
+                                                            + ' </div>'
+
+                                                        + ' </div>';
+
+                           }
+                           else if (item.state == 2) {
+                               html += '  <div class="weui-panel weui-panel_access">'
+                                                         + '<div class="weui-panel__hd">' + item.org_name + '<span style="float:right">已参加</span></div>'
+                                                                           + '<div class="weui-panel__bd">'
+                                                                             + '<a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                                                             + '<div class="weui-media-box__hd">'
+                                                                             + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" width="100%" height="100%" >'
+                                                                          + '</div>'
+                                                                        + ' <div class="weui-media-box__bd">'
+                                                                            + ' <h4 class="weui-media-box__title">' + item.activity_name + '</h4>'
+                                                                            + ' <p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                                                        + ' </div>'
+                                                                       + '</a>'
+                                                            + ' </div>'
+                                                            + ' <div class="weui-panel__ft">'
+                                                                + ' <a href="/XiaoTuan/Home/AssessPage?orgFormId='+item.org_form_id+'" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">活动评价</a>'
+                                                            + ' </div>'
+
+                                                        + ' </div>';
+                           }
+                           else if (item.state == 3) {
+                               html += '  <div class="weui-panel weui-panel_access">'
+                                                         + '<div class="weui-panel__hd">' + item.org_name + '<span style="float:right">已参加</span></div>'
+                                                                           + '<div class="weui-panel__bd">'
+                                                                             + '<a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                                                             + '<div class="weui-media-box__hd">'
+                                                                             + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" width="100%" height="100%" >'
+                                                                          + '</div>'
+                                                                        + ' <div class="weui-media-box__bd">'
+                                                                            + ' <h4 class="weui-media-box__title">' + item.activity_name + '</h4>'
+                                                                            + ' <p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                                                        + ' </div>'
+                                                                       + '</a>'
+                                                            + ' </div>'
+                                                            + ' <div class="weui-panel__ft">'
+                                                                + ' <a href="/XiaoTuan/Home/AssessFinishedPage?activity_id='+item.activity_id+'" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>'
+                                                            + ' </div>'
+
+                                                        + ' </div>';
+                           }
+                           else if (item.state == -1)
+                            {
+                                html += '  <div class="weui-panel weui-panel_access">'
+                                                          + '<div class="weui-panel__hd">' + item.org_name + '<span style="float:right">已取消</span></div>'
+                                                                            + '<div class="weui-panel__bd">'
+                                                                              + '<a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" class="weui-media-box weui-media-box_appmsg">'
+                                                                              + '<div class="weui-media-box__hd">'
+                                                                              + '<img class="weui-media-box__thumb" src="' + item.activity_photo + '" width="100%" height="100%" >'
+                                                                           + '</div>'
+                                                                         + ' <div class="weui-media-box__bd">'
+                                                                             + ' <h4 class="weui-media-box__title">' + item.activity_name + '</h4>'
+                                                                             + ' <p class="weui-media-box__desc">' + item.activity_detail + '</p>'
+                                                                         + ' </div>'
+                                                                        + '</a>'
+                                                             + ' </div>'
+                                                             + ' <div class="weui-panel__ft">'
+                                                                 + ' <a href="/XiaoTuan/Home/ActivityDetial?activity_id=' + item.activity_id + '" id="show-confirm" class="weui-btn weui-btn_mini weui-btn_default">查看详情</a>'
+                                                             + ' </div>'
+
+                                                         + ' </div>';
+                            }
+
+
+                        })
+
+                        $("#listLoead").html(html);
+                    }
+                },
+
+            });
+        }
+
+
+
+        $('.title-choice div').click(function () {
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+
+        })
+    </script>
+    @*<script>
+            var loading = false;
+            $(document.body).infinite().on("infinite", function () {
+                if (loading) return;
+                loading = true;
+                setTimeout(function () {
+                    $("#listLoead").append("<p>《世界著名计算机教材精选·人工智能:一种现代的方法(第3版)》英文版有1100多页，教学内容非常丰富，不但涵盖了人工智能基础、问题求解、知识推理与规划等经典内容，而且还包括不确定知识与推理、机器学习、通讯感知与行动等专门知识的介绍。目前我们为本科生开设的学科基础必修课“人工智能导论”主要介绍其中的经典内容，而研究生必修的核心课程“人工智能原理”主要关注其中的专门知识。其实《世界著名计算机教材精选·人工智能:一种现代的方法(第3版)》也适合希望提高自身计算系统设计水平的广大应用计算技术的社会公众，对参加信息学奥林匹克竞赛和ACM程序设计竞赛的选手及其教练员也有一定的参考作用。</p>");
+                    loading = false;
+                }, 1000);
+            });
+        </script>*@
+</body>
+
+</html>

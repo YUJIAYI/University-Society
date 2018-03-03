@@ -1,0 +1,26 @@
+﻿
+@model Web.Areas.XiaoTuan.ViewModels.ActivityDetailAdmin_M
+<div class="col-lg-3">
+</div>
+<div class="col-lg-6">
+    @Html.ShowInputFor(o=>o.org_name,1)
+    @Html.InputFor(o => o.activity_name, 2, "", true)
+    @Html.InputFor(o => o.activity_place, 2, "", true)
+    @Html.InputFor(o => o.activity_time, 2, "", true)
+    @Html.InputFor(o => o.sign_end_time, 2, "", true)
+    @Html.InputAreaFor(o => o.sign_notice, 1, "", 100, true)
+    @Html.InputAreaFor(o => o.activity_detail, 1, "", 100, true)
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label>活动图片</label>
+            <img src="@Model.activity_photo" style="width:100%" />
+            
+        </div>
+    </div>
+    
+
+    
+</div>
+<div class="col-lg-3">
+</div>
+

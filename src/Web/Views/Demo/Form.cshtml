@@ -1,0 +1,43 @@
+﻿
+@model Web.ViewModels.Demo.Form_M
+
+
+@Html.InputFor(o => o.TestChar,3, " 我是Char型")
+@Html.InputFor(o => o.TestInt, 3," 我是Int型")
+@Html.InputFor(o => o.TestFloat,3, " 我是Float型")
+
+@Html.InputFor(o => o.TestDouble,3, " 我是Double型")
+@Html.InputFor(o => o._TestReadOnly,3, "我不可以被编辑", true)
+@Html.TimeFor(o => o.TestDateTime,3, "我是时间")
+
+
+@Html.SelectFor(o => o._TestReadOnly, Model._TestItems)
+@Html.SelectFor(o => o._TestReadOnly, Model._TestItems, 3,"我是只读单选框", true)
+@Html.ContentsFor(o => o._TestContentFile,3, "测试内容系统文件上传")
+
+
+@Html.InputAreaFor(o => o.TestString, 1,"我是多行文本(默认高度)")
+@Html.InputAreaFor(o => o.TestString, 1, "我是(宽400，高200)只读多行文本", 200, true)
+@Html.RichBoxFor(o => o.TestRichText, 1, "我是富文本")
+
+
+<a id="active-upload">上传照片(可隐藏)</a>
+<div id="uploadPhoto">
+    @Html.FileFor(o => o.TestFile, "/UserFiles/Test/")
+</div>
+<script>
+    function OnUploadFinish(filePath) {
+        $('#uploadPhoto').hide();
+        alert("文件上传成功" + filePath);
+    };
+
+    $().ready(function () {
+        $('#uploadPhoto').hide();
+        $('#active-upload').click(function () {
+            $('#uploadPhoto').show();
+        });
+    });
+</script>
+<hr />
+
+

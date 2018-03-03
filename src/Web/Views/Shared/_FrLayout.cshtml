@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Path to Framework7 Library CSS-->
+
+    <link href="~/Include/Framework7/1.6.0/dist/css/framework7.ios.min.css" rel="stylesheet" />
+    <link href="~/Include/Framework7/1.6.0/dist/css/framework7.ios.colors.min.css" rel="stylesheet" />
+   
+    <link href="~/Include/Framework7/1.6.0/kitchen-sink-ios/css/framework7-icons.css" rel="stylesheet" />
+    <link href="~/Include/Framework7/1.6.0/kitchen-sink-ios/css/kitchen-sink.css" rel="stylesheet" />
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="~/Include/Framework7/1.6.0/dist/css/my-app.css">
+    @RenderSection("css", required: false)
+</head>
+<body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+            <p>Left panel content goes here</p>
+        </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+        <div class="content-block">
+            <p>Right panel content goes here</p>
+        </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class-->
+        <div class="view view-main">
+            <!-- Top Navbar-->
+            @Html.Partial("_Fr_Navbar", ViewData)
+            <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Index Page-->
+                <div data-page="index" class="page">
+                    <div class="page-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Path to Framework7 Library JS-->
+
+    <script src="~/Include/Framework7/1.6.0/dist/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script src="~/Include/Framework7/1.6.0/dist/js/my-app.js"></script>
+
+    <script>
+        var app = new Framework7();
+        function selectTime(id) {
+            var pickerDescribe = app.picker({
+                input: '#' + id,
+                rotateEffect: true,
+                toolbar: false,
+                cols: [
+                    {
+                        textAlign: 'left',
+                        values: ('01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23').split(' ')
+                      
+                    },
+                    {
+                        values: ('00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59').split(' ')
+                    },
+                ],
+                formatValue: function (p, values, displayValues) {
+                    return values[0] + ':' + values[1];
+                }
+
+            });
+          
+        }
+        function selectWeek(id) {
+            var pickerDescribe = app.picker({
+                input: '#' + id,
+                rotateEffect: true,
+                toolbar: false,
+                cols: [
+                    {
+                        textAlign: 'left',
+                        values: ('1 2 3 4 5 6 7').split(' '),
+                        displayValues: ('星期一 星期二 星期三 星期四 星期五 星期六 星期日').split(' ')
+                    }
+                ]
+               
+            });
+
+        }
+        function refresh() { 
+            app.showPreloader('加载中...');
+            mainView.router.refreshPage();
+            setTimeout(function () {
+                app.hidePreloader();
+            }, 300);
+            //location.replace(document.referrer);
+        }
+        function afterSubmitOk(url) {
+            app.hidePreloader();
+            mainView.router.loadPage(url);
+            console.log(url);
+        }
+        function tip1() {
+            app.alert('感谢您的支持，我们将继续完善该功能', "提示");
+        }
+        function tip2() {
+            app.alert('感谢您的反馈，我们将在下一版本改进', "提示");
+        }
+        function tip3() {
+            app.alert('您已经评价过该版本了，无需重复评价', "提示");
+        }
+        function tip4() {
+            app.alert('抱歉给您带来了困扰，我们将减少推荐信息的展示次数', "提示");
+        }
+        function submit(url) {
+            app.showPreloader('提交中...');
+            var formData = app.formToJSON('#my-form');
+            //alert(JSON.stringify(formData));
+            $$.ajax({
+                url: url,
+                data: formData,
+                method: 'POST',
+                dataType:'json',
+                success: function (data, status, xhr) {
+                    if (data.state === 200) {
+                        app.alert('提交成功', "提示");
+                        afterSubmitOk(data.url);
+                    } else {
+                        app.hidePreloader();
+                        app.alert('信息不完整', "提示");
+                    }
+                   
+                },
+                error: function (xhr, status) {
+                    app.hidePreloader();
+                    app.alert('error',"提示");
+                },
+                statusCode: {
+                    404: function (xhr) {
+                        app.hidePreloader();
+                        app.alert('page not found', "提示");
+                    }
+                }
+            });
+         
+            //location.replace(document.referrer);
+        }
+
+        function submitDelete(url,id) {
+            app.showPreloader('删除中...');
+            $$.ajax({
+                url: url,
+                data: {uid:'@ViewData["uid"]',id:id},
+                method: 'POST',
+                dataType: 'json',
+                success: function (data, status, xhr) {
+                    if (data.state === 200) {
+                        app.hidePreloader();
+                        app.alert('删除成功', "提示");
+                        mainView.router.refreshPage();
+                    } else {
+                        app.hidePreloader();
+                        app.alert('删除失败', "提示");
+                    }
+
+                },
+                error: function (xhr, status) {
+                    app.hidePreloader();
+                    app.alert('error', "提示");
+                },
+                statusCode: {
+                    404: function (xhr) {
+                        app.hidePreloader();
+                        app.alert('page not found', "提示");
+                    }
+                }
+            });
+
+            //location.replace(document.referrer);
+        }
+            //mainView.router.loadPage(url);
+          
+            //document.getElementById("myform").submit();
+
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

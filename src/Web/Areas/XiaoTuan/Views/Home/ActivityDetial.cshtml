@@ -1,0 +1,232 @@
+﻿@model Web.Areas.XiaoTuan.ViewModels.ActivityDetial_M
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>详情信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+
+    <link href="~/Areas/XiaoTuan/Contents/css/weui.min.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
+    <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+
+
+</head>
+
+<body ontouchstart>
+
+
+    <div class="active-photo">
+
+        <img src="@Model.activityDetial.activity_photo" />
+        <div class="shadow-prompt">
+            <p class="left">@Model.activityDetial.activity_name</p>
+            <p class="right">已有<span>@Model.activityEnrollNum</span>人报名</p>
+        </div>
+    </div>
+
+    <div class="weui-cells clear-relative">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>主办方</p>
+            </div>
+            <div class="weui-cell__ft">@Model.activityDetial.organization.org_name</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动地点</p>
+            </div>
+            <div class="weui-cell__ft">@Model.activityDetial.activity_place</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动时间</p>
+            </div>
+            <div class="weui-cell__ft">@Model.activityTime</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>报名截止</p>
+            </div>
+            <div class="weui-cell__ft">@Model.endTime</div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>报名须知</p>
+            </div>
+        </div>
+        <div class="cell-style">@Model.activityDetial.sign_notice</div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>活动详情</p>
+            </div>
+
+        </div>
+        <div class="cell-style">@Model.activityDetial.activity_detail</div>
+
+    </div>
+    <div class="DitialClear">
+
+    </div>
+    <div class="weui-footer_fixed-bottom footer-bottom">
+        @if (@Model.stateOne == 0 && @Model.stateTwo == 0)
+        {
+            <a href="javascript:void(0);" onclick='addEnroll("@Model.activityDetial.activity_id")'>
+                <div class="right">
+                    我要报名
+                </div>
+            </a>
+        }
+        else if (@Model.stateOne == 1 && @Model.stateTwo == 0)
+        {
+            <div class="end">
+                报名结束
+            </div>
+        }
+        else
+        {
+            <div class="end">
+                活动结束
+            </div>
+        }
+
+        <a href="/XiaoTuan/Home/OrganizationDetial?org_id=@Model.activityDetial.org_id">
+            <div class="middle">
+                @Model.activityDetial.organization.org_name
+            </div>
+        </a>
+        @if (@Model.collectionState == 0)
+        {
+            <a href="javascript:void(0);" onclick='collection("@Model.activityDetial.activity_id",0)'>
+                <div class="left">
+
+                    <img src="~/Areas/XiaoTuan/Contents/img/logo/collection.png"  />
+                    <p style="padding:0 0;">收藏</p>
+                    
+                </div>
+            </a>
+        }
+        else
+        {
+            <a href="javascript:void(0);" onclick='collection("@Model.activityDetial.activity_id",1)'>
+                <div class="left">
+                    <img src="~/Areas/XiaoTuan/Contents/img/logo/red-collection.png"/>
+                    <p style="padding:0 0;">已收藏</p>
+                </div>
+            </a>
+        }
+
+    </div>
+
+
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script>
+        $(function () {
+            FastClick.attach(document.body);
+        });
+    </script>
+
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script>
+
+        (function (doc, win, undefined) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (clientWidth === undefined) return;
+                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                  console.log(docEl.style.fontSize);
+              };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+
+        function addEnroll(activity_id) {
+            $.confirm("您确定要报名该活动?", "确定报名", function () {
+                $.post("/XiaoTuan/Home/addEnroll?activity_id=" + activity_id,
+                      {
+
+                      },
+                      function (data, status) {
+                          //data   1：报名成功，0：报名失败，2：重复报名 3：没有实名认证
+                          if (status == 'success') {
+                              if (data == 1)//报名成功
+                              {
+                                  $.confirm("是否要跳转?", "报名成功", function () {
+                                      location = "EnrollPage?index=0";
+                                  }, function () {
+                                      $.toast("取消操作!", 'cancel');
+                                  });
+                              }
+                              if (data == 2) {
+                                  $.toast("重复报名!", 'cancel');
+                              }
+                              if (data == 3) {
+                                  $.toast("还没有实名认证哦!", 'cancel');
+                              }
+                              if (data == 0) {
+                                  $.toast("报名失败", 'cancel');
+                              }
+                          }
+                          else {
+                              $.toast("服务器请求失败", 'cancel');
+                          }
+
+                      });
+
+            }, function () {
+                $.toast("取消操作!", 'cancel');
+            });
+
+        }
+
+
+        function collection(activity_id, index) {
+
+            $.post("/XiaoTuan/Home/collection?activity_id=" + activity_id + "&index=" + index,
+                      {
+
+                      },
+                      function (data, status) {
+                          if (status == 'success') {
+                              if (index == 0) {
+                                  $.toast("收藏成功!");
+                                  setTimeout(function () {
+                                      location.reload();
+                                  }, 1000);
+                              }
+                              else {
+                                  $.toast("取消成功!");
+                                  setTimeout(function () {
+                                      location.reload();
+                                  }, 1000);
+                              }
+
+                          }
+                          else {
+                              $.toast("服务出错!", 'cancel');
+                              setTimeout(function () {
+                                  location.reload();
+                              }, 1000);
+                          }
+
+                      });
+
+        }
+    </script>
+</body>
+
+</html>

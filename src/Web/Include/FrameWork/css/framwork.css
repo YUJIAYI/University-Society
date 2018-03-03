@@ -1,0 +1,19 @@
+﻿.form-control {
+   width: 99% !important;
+  
+}
+.form-group {
+     margin-left: 5px !important;
+}
+.list-group {
+      width: 99% !important;
+}
+.panel {
+    width: 99% !important;
+}
+pre {
+     width: 99% !important;
+}
+   a {
+        cursor: pointer;
+    }

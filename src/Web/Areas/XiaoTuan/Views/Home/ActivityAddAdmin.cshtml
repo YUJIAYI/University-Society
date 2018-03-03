@@ -1,0 +1,31 @@
+﻿@model Web.Areas.XiaoTuan.ViewModels.ActivityAddAdmin_M
+<div class="col-lg-3">
+</div>
+<div class="col-lg-6">
+    @Html.SelectFor(o=>o.org_id, Model.orgSelect,1)
+    @Html.InputFor(o => o.activity_name, 2)
+    @Html.InputFor(o => o.activity_place, 2)
+    @Html.TimeFor(o => o.activity_time, 2)
+    @Html.TimeFor(o => o.sign_end_time, 2)
+    @Html.InputAreaFor(o => o.sign_notice, 1, "", 100)
+    @Html.InputAreaFor(o => o.activity_detail, 1, "", 100)
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label>活动图片</label>
+
+        </div>
+    </div>
+    @Html.FileFor(o => o.activity_photo, "/Areas/XiaoTuan/Contents/img/photo")
+
+    <input type="hidden" name="photo" id="photo" />
+</div>
+<div class="col-lg-3">
+</div>
+<script>
+    function onUploadFinish(path) {
+        $('#uploadPhoto').hide
+        $("#photo").val(path)
+        console.log(path)
+        alert("图片上传成功");
+    };
+</script>
