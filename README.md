@@ -18,3 +18,6 @@
 * 后台使用.net mvc
 * 数据库为sql sever
 
+* 编程语言  
+    * 脚本语言  
+        * Python 
