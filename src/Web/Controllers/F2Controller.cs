@@ -193,7 +193,7 @@ namespace Web.Controllers
             }
             return View(new Login_M()
             {
-                UserId = "1325112032",
+                UserId = "1425111058",
               //  _anouncement = _yxxtService.GetAnouncements(12)
             });
         }

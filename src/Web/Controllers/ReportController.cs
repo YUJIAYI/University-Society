@@ -131,18 +131,18 @@ namespace Web.Controllers
         //[HttpPost]
         public ActionResult Report2(string ReportID, string Params,string dataSourceUrl,
          string dbConnStringKey,string uid,string filterId, int pageIndex= 1, int perCount = 10)
-        { 
+        {
             //获取用户权限列表
-            var list = _permmisionService.GetFilterByUserId("1425111058", ReportID);
-             
-            var filter = filterId.HasValue() ? list.FirstOrDefault(a => a.data_filter_id == filterId) : list.FirstOrDefault();
-           
-            var filterScript = filter == null?"": filter.filter_script;
+            // var list = _permmisionService.GetFilterByUserId(uid, ReportID);
+
+            // var filter = filterId.HasValue() ? list.FirstOrDefault(a => a.data_filter_id == filterId) : list.FirstOrDefault();
+
+            var filterScript = "1=1";// filter == null?"": filter.filter_script;
            
             var config = dataSourceUrl.HasValue() ?
                   _reportServices.ToView(ReportID, Params, HttpGet<List<List<string>>>(GeRootUrl(dataSourceUrl)), pageIndex, perCount, filterScript) :
                   _reportServices.ToView(ReportID, Params, dbConnStringKey, pageIndex, perCount, filterScript);
-            config.DataFilter = list;
+           // config.DataFilter = list;
             return Json(config, JsonRequestBehavior.AllowGet);
         }
         private string ToVirtualPath(string path)
