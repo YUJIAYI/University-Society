@@ -249,7 +249,7 @@
     <Compile Include="Areas\XiaoTuan\ViewModels\EnrollPage_M.cs" />
     <Compile Include="Areas\XiaoTuan\ViewModels\HomePage_M.cs" />
     <Compile Include="Areas\XiaoTuan\ViewModels\IdentfilyUser_M.cs" />
-    <Compile Include="Areas\XiaoTuan\ViewModels\organizationConcerns_M.cs" />
+    <Compile Include="Areas\XiaoTuan\ViewModels\OrganizationConcerns_M.cs" />
     <Compile Include="Areas\XiaoTuan\ViewModels\OrganizationDetial_M.cs" />
     <Compile Include="Areas\XiaoTuan\ViewModels\PersonalInformation_M.cs" />
     <Compile Include="Areas\XiaoTuan\ViewModels\StudentIdentification_M.cs" />
@@ -769,6 +769,7 @@
     <Content Include="Areas\XiaoTuan\Contents\js\jquery.fileupload.js" />
     <Content Include="Areas\XiaoTuan\Contents\js\jquery.iframe-transport.js" />
     <Content Include="Areas\XiaoTuan\Contents\js\jquery.ui.widget.js" />
+    <Content Include="Areas\XiaoTuan\Contents\js\self-adaption.js" />
     <Content Include="Areas\XiaoTuan\Contents\js\swiper.js" />
     <Content Include="Areas\XiaoTuan\Contents\js\swiper.min.js" />
     <Content Include="Areas\XiaoTuan\Contents\js\zepto.js" />
@@ -4170,7 +4171,7 @@
     <Content Include="Areas\XiaoTuan\Views\Home\EnrollPage.cshtml" />
     <Content Include="Areas\XiaoTuan\Views\Home\HomePage.cshtml" />
     <Content Include="Areas\XiaoTuan\Views\Home\IdentfilyUser.cshtml" />
-    <Content Include="Areas\XiaoTuan\Views\Home\organizationConcerns.cshtml" />
+    <Content Include="Areas\XiaoTuan\Views\Home\OrganizationConcerns.cshtml" />
     <Content Include="Areas\XiaoTuan\Views\Home\OrganizationDetial.cshtml" />
     <Content Include="Areas\XiaoTuan\Views\Home\PersonalInformation.cshtml" />
     <Content Include="Areas\XiaoTuan\Views\Home\StudentIdentification.cshtml" />

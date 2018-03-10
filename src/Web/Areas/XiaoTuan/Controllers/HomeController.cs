@@ -222,7 +222,7 @@ namespace Web.Areas.XiaoTuan.Controllers
         public ActionResult organizationConcerns()
         {
             var Concerns = _IXiaoTuanService.organizationConcerns(DataContext.UserID);
-            return View(organizationConcerns_M.ToViewModel(Concerns));
+            return View(OrganizationConcerns_M.ToViewModel(Concerns));
         }
 
 

@@ -183,62 +183,37 @@
 
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
-    <script>
-  $(function() {
-    FastClick.attach(document.body);
-  });
-    </script>
-  
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/swiper.js"></script>
-
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
-      $(".swiper-container").swiper({
-        loop: true,
-        autoplay: 3000
-      });
-    </script>
-    <script>
+          $(function() {
+            FastClick.attach(document.body);
+          });
+          $(".swiper-container").swiper({
+              loop: true,
+              autoplay: 3000
+          });
+          $(document).on("click", "#show-alert", function () {
+              $.alert("该链接内容正在扩建中", "温馨提示");
+          });
 
-      (function (doc, win, undefined) {
-                 var docEl = doc.documentElement,
-                   resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
-                   recalc = function () {
-                     var clientWidth = docEl.clientWidth;
-                     if (clientWidth === undefined) return;
-                     docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                 
-                   };
-                 if (doc.addEventListener === undefined) return;
-                 win.addEventListener(resizeEvt, recalc, false);
-                 doc.addEventListener('DOMContentLoaded', recalc, false)
-      })(document, window);
-
-      $(document).on("click", "#show-alert", function () {
-          $.alert("该链接内容正在扩建中", "温馨提示");
-      });
-
-      function timer(opj) {
-          $(opj).animate({
-              marginTop: "-20px"
-          }, 800, function () {
-              $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
-          })
-      }
-
-      $(function () {
-          var num = $('.go').find('li').length;
-          if (num > 1) {
-              var time = setInterval('timer(".go")', 2500);
-             
+          function timer(opj) {
+              $(opj).animate({
+                  marginTop: "-20px"
+              }, 800, function () {
+                  $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+              })
           }
-      });
 
-     
-      
+          $(function () {
+              var num = $('.go').find('li').length;
+              if (num > 1) {
+                  var time = setInterval('timer(".go")', 2500);
 
-    </script>
-    
+              }
+          });
+    </script>   
 
 </body>
 

@@ -30,10 +30,7 @@
                 <p>
                     考虑到当前我们传统在校课外活动宣传的局限性，我们通过互联网+的形式在线上进行活动宣传活动报名能够更好的发挥活动的效果，让更多的人参与其中。
                 </p>
-                @*<p>
-                    <img src="./images/pic_article.png" alt="">
-                    <img src="./images/pic_article.png" alt="">
-                </p>*@
+
             </section>
             <section>
                 <h3>主要功能</h3>
@@ -49,30 +46,14 @@
 
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
                 $(function () {
                     FastClick.attach(document.body);
                 });
     </script>
 
-    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
-    <script>
-
-                (function (doc, win, undefined) {
-                    var docEl = doc.documentElement,
-                      resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-                      recalc = function () {
-                          var clientWidth = docEl.clientWidth;
-                          if (clientWidth === undefined) return;
-                          docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                          console.log(docEl.style.fontSize);
-                      };
-                    if (doc.addEventListener === undefined) return;
-                    win.addEventListener(resizeEvt, recalc, false);
-                    doc.addEventListener('DOMContentLoaded', recalc, false)
-                })(document, window);
-
-    </script>
 </body>
 
 </html>

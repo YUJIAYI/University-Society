@@ -14,10 +14,13 @@ namespace Web.Areas.XiaoTuan.ViewModels
         {
             return new ActivityCollection_M()
             {
-                ActivityCollection = ActivityCollection
+                ActivityCollection = ActivityCollection,
+                ActivityCollectionNum = ActivityCollection.Count,
             };
 
         }
         public List<activityCollection> ActivityCollection { get;  set; }
+
+        public int ActivityCollectionNum { get; set; }
     }
 }

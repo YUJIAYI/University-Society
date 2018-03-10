@@ -15,6 +15,11 @@
     <link href="~/Areas/XiaoTuan/Contents/css/jquery-weui.css" rel="stylesheet" />
     <link href="~/Areas/XiaoTuan/Contents/css/demos.css" rel="stylesheet" />
     <link href="~/Areas/XiaoTuan/Contents/css/index.css" rel="stylesheet" />
+    <style>
+        .activity-time{
+            float:right;font-size:0.5rem;color:rgb(169,169,169);
+        }
+    </style>
 </head>
 
 <body ontouchstart>
@@ -26,19 +31,29 @@
                 <div class="page__bd">
                     <div class="weui-panel weui-panel_access">
                         <div class="weui-panel__bd" id="ActSearch">
-
-                            @foreach (var item in Model.ActivityCollection)
+                            @if (Model.ActivityCollectionNum == 0)
                             {
-                                <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
-                                    <div class="weui-media-box__hd">
-                                        <img class="weui-media-box__thumb" src="@item.activity.activity_photo" alt="" width="100%" height="100%" />
+                                <div class="weui-msg">
+                                    <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg-primary"></i></div>
+                                    <div class="weui-msg__text-area">
+                                        <h2 class="weui-msg__title">列表为空</h2>
+                                        <p class="weui-msg__desc">暂时还没有收藏任何活动，快去活动列表看看吧！</p>
                                     </div>
-                                    <div class="weui-media-box__bd">
+                                </div>
+                            }else {
+                                foreach (var item in Model.ActivityCollection)
+                                {
+                                    <a href="/XiaoTuan/Home/ActivityDetial?activity_id=@item.activity_id" class="weui-media-box weui-media-box_appmsg">
+                                        <div class="weui-media-box__hd">
+                                            <img class="weui-media-box__thumb" src="@item.activity.activity_photo" alt="" width="100%" height="100%" />
+                                        </div>
+                                        <div class="weui-media-box__bd">
                                
-                                        <h4 class="weui-media-box__title">@item.activity.activity_name<span style="float:right;font-size:0.5rem;color:rgb(169,169,169)">@item.activity.activity_time.Value.ToString("yyyy-MM-dd")</span></h4>
-                                        <p class="weui-media-box__desc">@item.activity.activity_detail</p>
-                                    </div>
-                                </a>
+                                            <h4 class="weui-media-box__title">@item.activity.activity_name<span class="activity-time">@item.activity.activity_time.Value.ToString("yyyy-MM-dd")</span></h4>
+                                            <p class="weui-media-box__desc">@item.activity.activity_detail</p>
+                                        </div>
+                                    </a>
+                                }
                             }
 
                         </div>
@@ -63,31 +78,12 @@
 
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
-    <script>
-  $(function() {
-    FastClick.attach(document.body);
-  });
-    </script>
-
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
-
-      (function (doc, win, undefined) {
-                 var docEl = doc.documentElement,
-                   resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
-                   recalc = function () {
-                     var clientWidth = docEl.clientWidth;
-                     if (clientWidth === undefined) return;
-                     docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-
-                   };
-                 if (doc.addEventListener === undefined) return;
-                 win.addEventListener(resizeEvt, recalc, false);
-                 doc.addEventListener('DOMContentLoaded', recalc, false)
-      })(document, window);
-
-
-
+          $(function() {
+            FastClick.attach(document.body);
+          });
     </script>
  
 </body>

@@ -125,29 +125,12 @@
 
         <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
         <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+        <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+        <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
         <script>
             $(function () {
                 FastClick.attach(document.body);
             });
-        </script>
-
-        <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
-        <script>
-
-            (function (doc, win, undefined) {
-                var docEl = doc.documentElement,
-                  resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-                  recalc = function () {
-                      var clientWidth = docEl.clientWidth;
-                      if (clientWidth === undefined) return;
-                      docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                      console.log(docEl.style.fontSize);
-                  };
-                if (doc.addEventListener === undefined) return;
-                win.addEventListener(resizeEvt, recalc, false);
-                doc.addEventListener('DOMContentLoaded', recalc, false)
-            })(document, window);
-
             function ChangeDateFormat(val) {
                 if (val != null) {
                     var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
@@ -201,26 +184,26 @@
 
                                          +' </a>'
                                     + '</div>';
-                               })
+                        })
                         $("#AssessBox").html(html);
 
-                               }
-                                     else {
-                                         $.toast("查询有误!");
-                                     }
+                    }
+                    else {
+                        $.toast("查询有误!");
+                    }
 
 
-                               });
+                });
 
-                        }*@
+            }*@
 
             $('.title-choice div').click(function () {
                 var index = $(this).index();
                 $(this).addClass('active').siblings().removeClass('active');
 
             })
-
         </script>
+
 </body>
 
 </html>
