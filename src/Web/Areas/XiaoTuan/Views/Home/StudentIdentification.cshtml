@@ -33,12 +33,6 @@
                         <h2 class="weui-msg__title">等待审核</h2>
                         <p class="weui-msg__desc">你的认证已经提交，请耐心等待管理员审核</p>
                     </div>
-                    @*<div class="weui-msg__opr-area">
-                            <p class="weui-btn-area">
-                                <a href="javascript:;" class="weui-btn weui-btn_primary">推荐操作</a>
-                                <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>
-                            </p>
-                        </div>*@
                     <div class="weui-msg__extra-area">
                         <div class="weui-footer">
                             <p class="weui-footer__links">
@@ -57,12 +51,6 @@
                         <h2 class="weui-msg__title">认证成功</h2>
                         <p class="weui-msg__desc">恭喜你已经通过学生认证！</p>
                     </div>
-                    @*<div class="weui-msg__opr-area">
-                            <p class="weui-btn-area">
-                                <a href="javascript:;" class="weui-btn weui-btn_primary">推荐操作</a>
-                                <a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>
-                            </p>
-                        </div>*@
                     <div class="weui-msg__extra-area">
                         <div class="weui-footer">
                             <p class="weui-footer__links">
@@ -246,37 +234,19 @@
 
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
         $(function () {
             FastClick.attach(document.body);
         });
-    </script>
-
-    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
-    <script>
-
-        (function (doc, win, undefined) {
-            var docEl = doc.documentElement,
-              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-              recalc = function () {
-                  var clientWidth = docEl.clientWidth;
-                  if (clientWidth === undefined) return;
-                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                  console.log(docEl.style.fontSize);
-              };
-            if (doc.addEventListener === undefined) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false)
-        })(document, window);
-
-
         function submit() {
-          
+
             var name = $("#name").val();
             var cell_number = $("#cell_number").val();
             var sex = $("#sex").val();
             var birthday = $("#birthday").val();
-            birthday = birthday.replace("日","00:00");
+            birthday = birthday.replace("日", "00:00");
             var to_school_time = $("#to_school_time").val();
             to_school_time = to_school_time.replace("日", "00:00");
             var school = $("#school").val();
@@ -317,22 +287,22 @@
             }
         }
 
-       
 
-            $("#birthday").datetimePicker({
-                title: '生日',
-                times: function () {
+
+        $("#birthday").datetimePicker({
+            title: '生日',
+            times: function () {
                 return [
                   {
                       values: ['日']
                   }
                 ];
-                },
-                value: '2012-12-12 日',
-                onChange: function (picker, values, displayValues) {
+            },
+            value: '2012-12-12 日',
+            onChange: function (picker, values, displayValues) {
 
-                }
-            });
+            }
+        });
         $("#to_school_time").datetimePicker({
             times: function () {
                 return [
@@ -376,7 +346,6 @@
                 console.log("close");
             }
         });
-
     </script>
 </body>
 

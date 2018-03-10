@@ -141,28 +141,12 @@
     </div>
     <script src="~/Areas/XiaoTuan/Contents/js/jquery-2.1.4.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
         $(function () {
             FastClick.attach(document.body);
         });
-    </script>
-
-    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
-    <script>
-
-        (function (doc, win, undefined) {
-            var docEl = doc.documentElement,
-              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-              recalc = function () {
-                  var clientWidth = docEl.clientWidth;
-                  if (clientWidth === undefined) return;
-                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                  console.log(docEl.style.fontSize);
-              };
-            if (doc.addEventListener === undefined) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false)
-        })(document, window);
 
         function concerns(org_id, index) {
 
@@ -196,8 +180,8 @@
                       });
 
         }
-
     </script>
+
 </body>
 
 </html>

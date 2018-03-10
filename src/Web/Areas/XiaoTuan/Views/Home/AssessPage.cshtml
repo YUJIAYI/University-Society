@@ -86,32 +86,13 @@
     <script src="~/Areas/XiaoTuan/Contents/js/fastclick.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/jquery.iframe-transport.js"></script>
     <script src="~/Areas/XiaoTuan/Contents/js/jquery.ui.widget.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/jquery.fileupload.js"></script>
+    <script src="~/Areas/XiaoTuan/Contents/js/self-adaption.js"></script>
     <script>
         $(function () {
             FastClick.attach(document.body);
         });
-    </script>
-
-    <script src="~/Areas/XiaoTuan/Contents/js/jquery-weui.js"></script>
-    <script src="~/Areas/XiaoTuan/Contents/js/jquery.fileupload.js"></script>
-
-    <script>
-
-        (function (doc, win, undefined) {
-            var docEl = doc.documentElement,
-              resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
-              recalc = function () {
-                  var clientWidth = docEl.clientWidth;
-                  if (clientWidth === undefined) return;
-                  docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                  console.log(docEl.style.fontSize);
-              };
-            if (doc.addEventListener === undefined) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false)
-        })(document, window);
-
-
         function submit() {
             var ActivityGrade = $("#ActivityGrade").val();
             var AssessText = $("#AssessText").val();
@@ -122,7 +103,7 @@
                  orgFormId: "@Model.ActivityAssess.org_form_id",
                  ActivityGrade: ActivityGrade,
                  AssessText: AssessText,
-                 piclist:piclist
+                 piclist: piclist
              },
              function (data, status) {
                  if (status == 'success') {
@@ -158,61 +139,52 @@
             }
         });
 
-        function Calculated()
-        {
+        function Calculated() {
             $('#textNum').html($('#AssessText').val().length);
-        }
+        };
 
+        var BarImageWidth = 225;
+
+        $('#uploaderInput').fileupload({
+            //dataType: "json",//返回类型
+            autoUpload: true, //自动上传
+            url: "@(uploadAction + "?saveDirectory=" + saveDirectory)", //请求传递的路径
+            limitConcurrentUploads: 1, //限制并发数
+            sequentialUploads: true, //设置为true保证文件顺序存储而不是同步存储
+            progressInterval: 100, //触发进度条事件的最小间隔事件，以毫秒为单位
+            //  maxChunkSize: 10000, //块状分段存储，允许块的最大长度
+
+            success: function (result) {
+                console.log(result);
+                var oldpic = $("#piclist").val();
+                var pic = oldpic + result.filePath + ';';
+                console.log(pic);
+                console.log(result.filePath);
+                $("#piclist").val(pic);
+                console.log($("#piclist").val());
+            },
+            //设置文件上传完毕事件的回调函数
+            add: function (e, data) {
+                //开始上传
+                //var Begin = "提示:上传中，请稍后...";
+                //var thethat = this;
+                console.log("提示:上传中，请稍后...");
+                data.submit();
+                console.log(data);
+            },
+
+            //设置上传进度事件的回调函数
+            progress: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                var CurrentBarWidth = progress / 100 * BarImageWidth;
+                console.log(CurrentBarWidth);
+            },
+        });
     </script>
 
     <script>
-    var BarImageWidth = 225;
-
-    $('#uploaderInput').fileupload({
-        //dataType: "json",//返回类型
-        autoUpload: true, //自动上传
-        url: "@(uploadAction + "?saveDirectory=" + saveDirectory)", //请求传递的路径
-        limitConcurrentUploads: 1, //限制并发数
-        sequentialUploads: true, //设置为true保证文件顺序存储而不是同步存储
-        progressInterval: 100, //触发进度条事件的最小间隔事件，以毫秒为单位
-      //  maxChunkSize: 10000, //块状分段存储，允许块的最大长度
-
-        success: function (result) {
-           console.log(result);
-            var oldpic = $("#piclist").val();
-            var pic = oldpic + result.filePath + ';';
-            console.log(pic);
-            console.log(result.filePath);
-            $("#piclist").val(pic);
-            console.log($("#piclist").val());
-        },
-        //设置文件上传完毕事件的回调函数
-        add: function (e, data) {
-            //开始上传
-            //var Begin = "提示:上传中，请稍后...";
-            //var thethat = this;
-            console.log("提示:上传中，请稍后...");
-            data.submit();
-            console.log(data);
-        },
-
-        //设置上传进度事件的回调函数
-        progress: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            //data.context.find('.bar').css('width', progress + '%');
-            var CurrentBarWidth = progress / 100 * BarImageWidth;
-            @*//$('#@("BarArea_"+id) img').css({ "width": CurrentBarWidth, "height": 14 });
-            //$('#@("MessageContent_"+id)').html(progress + '%');*@
-            console.log(CurrentBarWidth);
-        },
-    });
-
-    </script>
-    <script>
-
     $(function () {
         var t = 0;
-        //var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)" id="'+"imgli"+t+'"></li>',
         $gallery = $("#gallery"),
             $galleryImg = $("#galleryImg"),
             $uploaderInput = $("#uploaderInput"),
@@ -225,21 +197,13 @@
                 files = e.target.files;
             for (var i = 0, len = files.length; i < len; ++i) {
                 var file = files[i];
-
-              //  console.log(file);
-              //  var oldpic = $("#piclist").val();
-              //  var pic = oldpic +file.name+';';
-              ////  $("#piclist").val(pic);
-              //  console.log($("#piclist").val());
                 if (url) {
                     src = url.createObjectURL(file);
                 } else {
                     src = e.target.result;
                 }
                 var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)" id="' + "imgli" + t + '">' +
-                    //'<input type="file" name="uploaderInput" value="' + file + '" style="display:none" multiple="" />' +
                     '</li>';
-                //    alert(file);
                 t++;
                 $uploaderFiles.append($(tmpl.replace('#url#', src)));
 
@@ -248,9 +212,6 @@
         $uploaderFiles.on("click", "li", function () {
             $galleryImg.attr("style", this.getAttribute("style"));
             var myid = this.getAttribute("id");
-            //$("#deleid").click(function () {
-            //    $("#" + myid).remove();
-            //});
             $gallery.fadeIn(100);
         });
         $gallery.on("click", function () {

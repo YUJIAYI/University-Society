@@ -6,17 +6,19 @@ using XiaoTuan.Entity;
 
 namespace Web.Areas.XiaoTuan.ViewModels
 {
-    public class organizationConcerns_M
+    public class OrganizationConcerns_M
     {
 
 
-        public static organizationConcerns_M ToViewModel(List<organizationalConcerns> organizationConcerns)
+        public static OrganizationConcerns_M ToViewModel(List<organizationalConcerns> organizationConcerns)
         {
-            return new organizationConcerns_M()
+            return new OrganizationConcerns_M()
             {
-                organizationConcerns= organizationConcerns
+                organizationConcerns= organizationConcerns,
+                organizationConcernsNum = organizationConcerns.Count
             };
         }
         public List<organizationalConcerns> organizationConcerns { get;  set; }
+        public int organizationConcernsNum { get;  set; }
     }      
 }
